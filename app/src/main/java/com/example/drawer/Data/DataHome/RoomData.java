@@ -1,6 +1,6 @@
-package com.example.drawer.fragment;
+package com.example.drawer.Data.DataHome;
 
-import com.example.drawer.DataDevice;
+import com.example.drawer.Data.DataHome.DataDevice;
 import java.util.List;
 
 // RoomData class representing a room and its devices

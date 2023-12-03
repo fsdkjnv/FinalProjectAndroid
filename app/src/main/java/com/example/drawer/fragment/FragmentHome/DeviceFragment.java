@@ -1,7 +1,5 @@
-package com.example.drawer.fragment;
+package com.example.drawer.fragment.FragmentHome;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,10 +14,10 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.drawer.DataDevice;
-import com.example.drawer.DeviceAdapter;
+import com.example.drawer.Data.DataHome.DataManager;
+import com.example.drawer.Data.DataHome.DataDevice;
+import com.example.drawer.Adapter.AdapterHome.DeviceAdapter;
 import com.example.drawer.R;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 

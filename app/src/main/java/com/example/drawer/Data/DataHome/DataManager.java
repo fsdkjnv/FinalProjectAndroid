@@ -1,10 +1,9 @@
-package com.example.drawer.fragment;
+package com.example.drawer.Data.DataHome;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import com.example.drawer.DataDevice;
 
 public class DataManager {
     private static DataManager instance;

@@ -1,4 +1,4 @@
-package com.example.drawer.fragment;
+package com.example.drawer.fragment.FragmentMe;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

@@ -1,12 +1,11 @@
-package com.example.drawer.fragment;
+package com.example.drawer.ShareView;
 
 import androidx.lifecycle.ViewModel;
 
-import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.example.drawer.DataClass;
+import com.example.drawer.Data.DataHome.DataClass;
 
 
 import com.example.drawer.R;

@@ -1,15 +1,6 @@
 package com.example.drawer;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -17,17 +8,11 @@ import androidx.fragment.app.FragmentTransaction;
 import android.os.Bundle;
 import android.view.MenuItem;
 
-import com.example.drawer.fragment.SlideshowFragment;
+import com.example.drawer.fragment.FragmentMe.SlideshowFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import android.os.Bundle;
-import android.view.MenuItem;
-import android.widget.Toast;
-import android.os.Handler;
 
-import com.example.drawer.fragment.FavoriteFragment;
-import com.example.drawer.fragment.HomeFragment;
-import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.example.drawer.fragment.FragmentExplore.FavoriteFragment;
+import com.example.drawer.fragment.FragmentHome.HomeFragment;
 
 public class MainActivity extends AppCompatActivity {
 

@@ -1,18 +1,14 @@
-package com.example.drawer;
+package com.example.drawer.Adapter.AdapterHome;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
-import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.SeekBar;
 
 import java.util.List;
 import android.app.AlertDialog;
@@ -21,14 +17,14 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.drawer.DataDevice;
+import com.example.drawer.Data.DataHome.DataDevice;
 import com.example.drawer.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
-import java.util.List;
-public class DeviceAdapter extends RecyclerView.Adapter<MyViewHolder> {
+
+public class DeviceAdapter extends RecyclerView.Adapter<MyViewHolderDevice> {
 
     private Context context; // Ngữ cảnh của ứng dụng
     private List<DataDevice> dataList; // Danh sách dữ liệu thiết bị
@@ -38,11 +34,13 @@ public class DeviceAdapter extends RecyclerView.Adapter<MyViewHolder> {
         Type type = new TypeToken<List<DataDevice>>() {}.getType();
         return gson.toJson(dataList, type);
     }
+
     public static List<DataDevice> convertJsonToDeviceList(String json) {
         Gson gson = new Gson();
         Type type = new TypeToken<List<DataDevice>>() {}.getType();
         return gson.fromJson(json, type);
     }
+
     // Phương thức này được sử dụng để đặt danh sách tìm kiếm mới và thông báo cho adapter biết rằng dữ liệu đã thay đổi
     public void setSearchList(List<DataDevice> dataSearchList){
         this.dataList = dataSearchList;
@@ -58,14 +56,13 @@ public class DeviceAdapter extends RecyclerView.Adapter<MyViewHolder> {
     // Phương thức được ghi đè để tạo một ViewHolder mới từ tệp nguồn recycler_item_device
     @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public MyViewHolderDevice onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_item_device, parent, false);
-        return new MyViewHolder(view);
+        return new MyViewHolderDevice(view);
     }
 
-
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MyViewHolderDevice holder, int position) {
         DataDevice dataclass = dataList.get(position);
         if (dataclass == null) {
             return;
@@ -84,46 +81,45 @@ public class DeviceAdapter extends RecyclerView.Adapter<MyViewHolder> {
         });
 
         holder.recCard.setOnLongClickListener(new View.OnLongClickListener() {
-        @Override
-        public boolean onLongClick(View v) {
-            int currentPosition = holder.getAdapterPosition();
-            if (currentPosition != RecyclerView.NO_POSITION) {
-                new AlertDialog.Builder(context)
-                        .setTitle("Xác nhận xóa")
-                        .setMessage("Bạn có chắc chắn muốn xóa mục này không?")
-                        .setPositiveButton("Xóa", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                // Xóa mục tại vị trí "currentPosition" trong dataList
-                                dataList.remove(currentPosition);
-                                // Notify adapter about data changes and reflect the changes in the UI
-                                notifyItemRemoved(currentPosition);
-                            }
-                        })
-                        .setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        })
-                        .show();
+            @Override
+            public boolean onLongClick(View v) {
+                int currentPosition = holder.getAdapterPosition();
+                if (currentPosition != RecyclerView.NO_POSITION) {
+                    new AlertDialog.Builder(context)
+                            .setTitle("Xác nhận xóa")
+                            .setMessage("Bạn có chắc chắn muốn xóa mục này không?")
+                            .setPositiveButton("Xóa", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    // Xóa mục tại vị trí "currentPosition" trong dataList
+                                    dataList.remove(currentPosition);
+                                    // Notify adapter about data changes and reflect the changes in the UI
+                                    notifyItemRemoved(currentPosition);
+                                }
+                            })
+                            .setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            })
+                            .show();
+                }
+                return true;
             }
-            return true;
-        }
-    });
-    holder.switchButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-        @Override
-        public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-            if (isChecked) {
-                holder.recImage.setImageResource(R.drawable.bongdensang); // Đặt hình ảnh khi nút được bật
-            } else {
-                holder.recImage.setImageResource(R.drawable.bongdenoff); // Đặt hình ảnh khi nút được tắt
+        });
+
+        holder.switchButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                if (isChecked) {
+                    holder.recImage.setImageResource(R.drawable.bongdensang); // Đặt hình ảnh khi nút được bật
+                } else {
+                    holder.recImage.setImageResource(R.drawable.bongdenoff); // Đặt hình ảnh khi nút được tắt
+                }
             }
-        }
-    });
-
-
- }
+        });
+    }
 
     @Override
     public int getItemCount() {
@@ -131,7 +127,7 @@ public class DeviceAdapter extends RecyclerView.Adapter<MyViewHolder> {
     }
 }
 
-class MyViewHolder extends RecyclerView.ViewHolder{
+class MyViewHolderDevice extends RecyclerView.ViewHolder {
 
     public Switch switchButton;
     ImageView recImage;
@@ -139,13 +135,12 @@ class MyViewHolder extends RecyclerView.ViewHolder{
 
     CardView recCard;
 
-    public MyViewHolder(@NonNull View itemView) {
+    public MyViewHolderDevice(@NonNull View itemView) {
         super(itemView);
         switchButton = itemView.findViewById(R.id.switchButton); // Điều khiển chuyển đổi
         recImage = itemView.findViewById(R.id.recImagedevice); // Hình ảnh
         recTitle = itemView.findViewById(R.id.recTitledevice); // Tiêu đề
         recDesc = itemView.findViewById(R.id.recDescdevice); // Mô tả
         recCard = itemView.findViewById(R.id.recCardevice); // Thẻ
-
     }
 }

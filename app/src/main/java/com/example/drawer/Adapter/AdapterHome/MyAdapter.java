@@ -1,4 +1,4 @@
-package com.example.drawer.fragment;
+package com.example.drawer.Adapter.AdapterHome;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -16,10 +16,11 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.app.AlertDialog;
 
-import com.example.drawer.DataClass;
+import com.example.drawer.Data.DataHome.DataClass;
 import com.example.drawer.R;
+import com.example.drawer.fragment.FragmentHome.DeviceFragment;
 
-public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
+public class MyAdapter extends RecyclerView.Adapter<com.example.drawer.Adapter.AdapterHome.MyViewHolder> {
     private Context context;
     private List<DataClass> dataList;
 
@@ -32,14 +33,14 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
     @NonNull
     @Override
     //Phương thức onCreateViewHolder tạo một MyViewHolder mới khi cần hiển thị một item danh sách.
-    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public com.example.drawer.Adapter.AdapterHome.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_item, parent, false);
-        return new MyViewHolder(view);
+        return new com.example.drawer.Adapter.AdapterHome.MyViewHolder(view);
     }
 
     @Override
     //Phương thức onBindViewHolder gắn dữ liệu từ dataList vào MyViewHolder để hiển thị thông tin cho mỗi item danh sách.
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull com.example.drawer.Adapter.AdapterHome.MyViewHolder holder, int position) {
     DataClass dataclass = dataList.get(position);
     if (dataclass == null) {
         return;

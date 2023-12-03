@@ -1,5 +1,5 @@
 
-package com.example.drawer;
+package com.example.drawer.ShareView;
 
 import android.content.Context;
 import android.content.SharedPreferences;
