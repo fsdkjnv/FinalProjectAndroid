@@ -30,7 +30,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
-// toi la ai
+    // toi la ai
     // Khai báo và ánh xạ đối tượng BottomNavigationView và các hằng số Fragment
     private BottomNavigationView bottomNavigationView;
     private static final int FRAGMENT_HOME = 0;
