@@ -5,8 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import com.example.drawer.DataDevice;
-// ulatroihahaha
-//sualan1
+
 public class DataManager {
     private static DataManager instance;
     private Map<String, List<DataDevice>> roomData;
