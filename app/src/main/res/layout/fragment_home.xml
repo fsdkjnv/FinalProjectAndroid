@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="68dp"
-        android:fontFamily="sans-serif-light"
+        android:fontFamily="@font/abel_regular"
         android:text=" Hello, Vo Vi 🌿"
         android:textSize="30sp"
 

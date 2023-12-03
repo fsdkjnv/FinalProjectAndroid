@@ -18,9 +18,9 @@ public class SharedViewModel extends ViewModel {
         public List<DataClass> getDataList() {
         if (dataList.isEmpty()) {
             // Initialize with default data if the list is empty
-            dataList.add(new DataClass("Phòng Khách", R.string.camera, "", R.drawable.phongkhach));
-            dataList.add(new DataClass("Phòng học", R.string.recyclerview, "", R.drawable.phonghoc));
-            dataList.add(new DataClass("Phòng Ngủ", R.string.edit, "", R.drawable.phongngu));
+            dataList.add(new DataClass("Living Rom", R.string.camera, "", R.drawable.phongkhach));
+            dataList.add(new DataClass("Living Rom", R.string.recyclerview, "", R.drawable.phonghoc));
+            dataList.add(new DataClass("Living Rom", R.string.edit, "", R.drawable.phongngu));
         }
         return dataList;
     }

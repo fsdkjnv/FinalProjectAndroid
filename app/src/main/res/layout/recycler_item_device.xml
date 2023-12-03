@@ -25,7 +25,7 @@
                 <ImageView
                     android:id="@+id/recImagedevice"
                     android:layout_width="56dp"
-                    android:layout_height="56dp"
+                    android:layout_height="match_parent"
                     android:scaleType="fitCenter"
                     android:src="@drawable/cay_1" />
 
@@ -43,6 +43,7 @@
                         android:text="Title"
                         android:textColor="@android:color/black"
                         android:layout_marginTop="21dp"
+                        android:fontFamily="@font/abel_regular"
 
                         android:textSize="14sp" />
 
@@ -51,9 +52,18 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:maxLines="1"
+                        android:fontFamily="@font/abel_regular"
+
                         android:text="Seekbar:"
                         android:textSize="12sp" />
 
+                    <Switch
+                        android:id="@+id/switchButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:textSize="14sp" />
 
 
                 </LinearLayout>
@@ -88,6 +98,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/abel_regular"
+
             android:text="Test" />
     </LinearLayout>
 
@@ -108,6 +120,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/abel_regular"
+
             android:text="Test" />
     </LinearLayout>
 
@@ -123,16 +137,10 @@
 
 
         <!-- Switch -->
-        <Switch
-            android:id="@+id/switchButton"
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp" />
-                <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:fontFamily="@font/abel_regular"
             android:text="Test" />
     </LinearLayout>
 </LinearLayout>
