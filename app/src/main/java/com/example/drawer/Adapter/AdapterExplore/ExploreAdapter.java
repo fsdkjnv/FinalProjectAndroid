@@ -1,4 +1,4 @@
-package com.example.drawer;
+package com.example.drawer.Adapter.AdapterExplore;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +8,9 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.drawer.Data.DataExplore.ExploreItem;
+import com.example.drawer.R;
 
 import java.util.List;
 

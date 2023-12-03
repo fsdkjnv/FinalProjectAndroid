@@ -10,8 +10,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.drawer.ExploreAdapter;
-import com.example.drawer.ExploreItem;
+import com.example.drawer.Adapter.AdapterExplore.ExploreAdapter;
+import com.example.drawer.Data.DataExplore.ExploreItem;
 import com.example.drawer.R;
 
 import java.util.List;
