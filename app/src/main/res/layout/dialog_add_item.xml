@@ -1,0 +1,16 @@
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Các thành phần khác trong layout -->
+
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Nhập nội dung"/>
+
+    <!-- Các thành phần khác trong layout -->
+
+</ScrollView>

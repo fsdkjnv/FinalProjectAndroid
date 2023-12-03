@@ -1,0 +1,138 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    android:orientation="vertical">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/recCardevice"
+        android:layout_margin="0dp"
+       >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/recImagedevice"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/cay_1" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/recTitledevice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:maxLines="1"
+                        android:text="Title"
+                        android:textColor="@android:color/black"
+                        android:layout_marginTop="21dp"
+
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/recDescdevice"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:maxLines="1"
+                        android:text="Seekbar:"
+                        android:textSize="12sp" />
+
+
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="3dp">
+
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- First Image and Text -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginTop="21dp"
+        android:layout_marginBottom="21dp"
+        android:layout_marginLeft="24dp">
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/frame" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Test" />
+    </LinearLayout>
+
+    <!-- Second Image and Text -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="24dp">
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/img_2" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Test" />
+    </LinearLayout>
+
+    <!-- Third Image and Text with Switch -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="24dp">
+
+
+        <!-- Switch -->
+        <Switch
+            android:id="@+id/switchButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp" />
+                <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Test" />
+    </LinearLayout>
+</LinearLayout>
