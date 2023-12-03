@@ -1,6 +1,20 @@
 package com.example.drawer;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -13,9 +27,23 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import com.example.drawer.fragment.FragmentExplore.FavoriteFragment;
 import com.example.drawer.fragment.FragmentHome.HomeFragment;
+import android.os.Bundle;
+import android.view.MenuItem;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import android.os.Bundle;
+import android.view.MenuItem;
+import android.widget.Toast;
+import android.os.Handler;
+
+
+import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
+    // hello
+    // Khai báo và ánh xạ đối tượng BottomNavigationView và các hằng số Fragment
     private BottomNavigationView bottomNavigationView;
     private static final int FRAGMENT_HOME = 0;
     private static final int FRAGMENT_FAVORITE = 1;
