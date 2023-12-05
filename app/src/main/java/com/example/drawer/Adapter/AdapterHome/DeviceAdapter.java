@@ -1,5 +1,6 @@
 package com.example.drawer.Adapter.AdapterHome;
 
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.view.LayoutInflater;
@@ -7,11 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 
 import java.util.List;
 import android.app.AlertDialog;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -57,8 +60,11 @@ public class DeviceAdapter extends RecyclerView.Adapter<MyViewHolderDevice> {
     @NonNull
     @Override
     public MyViewHolderDevice onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_item_device, parent, false);
+
         return new MyViewHolderDevice(view);
+
     }
 
     @Override
@@ -108,23 +114,86 @@ public class DeviceAdapter extends RecyclerView.Adapter<MyViewHolderDevice> {
                 return true;
             }
         });
+        holder.recCard.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                int currentPosition = holder.getAdapterPosition();
+                if (currentPosition != RecyclerView.NO_POSITION) {
+                    new AlertDialog.Builder(context)
+                            .setTitle("Xác nhận xóa")
+                            .setMessage("Bạn có chắc chắn muốn xóa mục này không?")
+                            .setPositiveButton("Xóa", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    // Xóa mục tại vị trí "currentPosition" trong dataList
+                                    dataList.remove(currentPosition);
+                                    // Notify adapter about data changes and reflect the changes in the UI
+                                    notifyItemRemoved(currentPosition);
+                                }
+                            })
+                            .setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            })
+                            .show();
+                }
+                return true;
+            }
+        });
+        // Regular click listener
+// Đoạn code này nên được đặt trong phương thức onBindViewHolder của Adapter
+holder.recCard.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        // Toggle visibility of recCardTemp
+        int targetHeight = holder.linearLayout.getHeight() == dpToPx(60) ? dpToPx(170) : dpToPx(60);
+        animateViewHeight(holder.linearLayout, targetHeight);
+    }
+});
+
+
+
+
 
         holder.switchButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 if (isChecked) {
-                    holder.recImage.setImageResource(R.drawable.bongdensang); // Đặt hình ảnh khi nút được bật
+                 Toast.makeText(context, "Watering is turned on", Toast.LENGTH_SHORT).show();
                 } else {
-                    holder.recImage.setImageResource(R.drawable.bongdenoff); // Đặt hình ảnh khi nút được tắt
+                 Toast.makeText(context, "Watering is turned off", Toast.LENGTH_SHORT).show();
                 }
             }
         });
+
     }
 
     @Override
     public int getItemCount() {
         return dataList.size();
     }
+
+// Helper method to animate the height change
+    private void animateViewHeight(final View view, final int targetHeight) {
+        ValueAnimator anim = ValueAnimator.ofInt(view.getMeasuredHeight(), targetHeight);
+        anim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                int value = (int) valueAnimator.getAnimatedValue();
+                ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
+                layoutParams.height = value;
+                view.setLayoutParams(layoutParams);
+            }
+        });
+        anim.setDuration(300); // Adjust the duration as needed
+        anim.start();
+    }
+    private int dpToPx(int dp) {
+    float density = context.getResources().getDisplayMetrics().density;
+    return Math.round((float) dp * density);
+}
 }
 
 class MyViewHolderDevice extends RecyclerView.ViewHolder {
@@ -132,8 +201,9 @@ class MyViewHolderDevice extends RecyclerView.ViewHolder {
     public Switch switchButton;
     ImageView recImage;
     TextView recTitle, recDesc;
+     LinearLayout linearLayout;
 
-    CardView recCard;
+    CardView recCard, recCardTemp;
 
     public MyViewHolderDevice(@NonNull View itemView) {
         super(itemView);
@@ -142,5 +212,9 @@ class MyViewHolderDevice extends RecyclerView.ViewHolder {
         recTitle = itemView.findViewById(R.id.recTitledevice); // Tiêu đề
         recDesc = itemView.findViewById(R.id.recDescdevice); // Mô tả
         recCard = itemView.findViewById(R.id.recCardevice); // Thẻ
+        recCardTemp = itemView.findViewById(R.id.recCardtemp); // Thẻ
+        linearLayout = itemView.findViewById(R.id.layoutdevice); // Thẻ
+
+
     }
 }

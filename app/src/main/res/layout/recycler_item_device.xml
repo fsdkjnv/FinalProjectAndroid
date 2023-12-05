@@ -1,7 +1,8 @@
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="200dp"
+    android:layout_height="60dp"
+    android:id="@+id/layoutdevice"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
@@ -41,7 +42,7 @@
                         android:layout_height="wrap_content"
                         android:maxLines="1"
                         android:text="Title"
-                        android:textColor="@android:color/black"
+                        android:textColor="#06492C"
                         android:layout_marginTop="21dp"
                         android:fontFamily="@font/abel_regular"
 
@@ -53,94 +54,109 @@
                         android:layout_height="wrap_content"
                         android:maxLines="1"
                         android:fontFamily="@font/abel_regular"
-
                         android:text="Seekbar:"
                         android:textSize="12sp" />
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="3dp">
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="75dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
                     <Switch
                         android:id="@+id/switchButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginBottom="8dp"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:scaleX="1.25"
+                        android:scaleY="1.25"
                         android:textSize="14sp" />
-
-
                 </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="3dp">
-
             </LinearLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
-    <!-- First Image and Text -->
-    <LinearLayout
+    <!-- Second CardView -->
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:layout_marginTop="21dp"
-        android:layout_marginBottom="21dp"
-        android:layout_marginLeft="24dp">
+        android:layout_height="107dp"
+        android:id="@+id/recCardtemp"
+        app:cardBackgroundColor="#EDF2EF"
+        app:cardElevation="4dp">
+        <!-- First Image and Text -->
 
-        <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/frame" />
+        <!-- Second Image and Text -->
 
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/abel_regular"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="30dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
-            android:text="Test" />
-    </LinearLayout>
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="8dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/frame" />
 
-    <!-- Second Image and Text -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:layout_marginLeft="24dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:fontFamily="@font/abel_regular"
+                android:textColor="#06492C"
+                android:text="23°c" />
 
-        <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/img_2" />
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginStart="8dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/tick" />
+        </LinearLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/abel_regular"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="60dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
-            android:text="Test" />
-    </LinearLayout>
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="8dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/img_2" />
 
-    <!-- Third Image and Text with Switch -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="24dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:fontFamily="@font/abel_regular"
+                android:textColor="#06492C"
+                android:text="85%" />
 
-
-        <!-- Switch -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/abel_regular"
-            android:text="Test" />
-    </LinearLayout>
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginStart="8dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/tick" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
 </LinearLayout>
