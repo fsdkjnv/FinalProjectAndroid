@@ -6,21 +6,52 @@
     android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewExplore"
+        android:layout_width="110dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="4dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <!-- Icon and Text in Toolbar -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+            <!-- Icon -->
+            <ImageView
+                android:layout_width="42dp"
+                android:layout_height="24dp"
+                android:contentDescription="Back Icon"
+                android:src="@drawable/img_3" />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Back"
-            />
+            <!-- Text -->
+            <TextView
+                android:id="@+id/toolbarTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:fontFamily="@font/abel_regular"
+                android:text="Go Back"
+                android:textColor="#0C9359"
+                android:textSize="17sp" />
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
         <ImageView
             android:id="@+id/recImagePlant"
             android:layout_width="match_parent"
             android:layout_height="300dp"
             android:layout_weight="4"
             android:scaleType="centerCrop"
-            android:src="@drawable/cay_1"
-            />
-                <TextView
+            android:src="@drawable/cay_1" />
+
+        <TextView
                     android:id="@+id/recTitleExplore"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

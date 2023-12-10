@@ -2,6 +2,7 @@ package com.example.drawer.fragment.FragmentExplore;
 
 import android.os.Bundle;
 
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -20,6 +21,7 @@ public class DetailFragment extends Fragment {
     TextView textViewTitle;
     TextView textViewContent;
     TextView textViewAuthor;
+    CardView CardExpolre; // CardView chứa toàn bộ thông tin
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -37,6 +39,17 @@ public class DetailFragment extends Fragment {
             textViewContent.setText(bundle.getString("Content"));
             textViewAuthor.setText(bundle.getString("Author"));
         }
+        CardExpolre = rootView.findViewById(R.id.cardViewExplore);
+
+        CardExpolre.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Handle the click event (Navigate back or perform any desired action)
+                if (getActivity() != null) {
+                    getActivity().onBackPressed(); // This will simulate pressing the back button
+                }
+            }
+        });
 //        DataDevice dataDevice
         // Inflate the layout for this fragment
 //        return inflater.inflate(R.layout.fragment_detail, container, false);
