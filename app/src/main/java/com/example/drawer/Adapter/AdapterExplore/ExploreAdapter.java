@@ -2,11 +2,15 @@ package com.example.drawer.Adapter.AdapterExplore;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -49,14 +53,26 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ExploreV
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+            holder.imageView.setImageResource(exploreItem.getImage()); // Đặt hình ảnh cho ImageView
+            holder.textViewTitle.setText(String.valueOf(exploreItem.getTitle())); // Đặt tiêu đề với dữ liệu được trả về
 
-                Intent intent = new Intent(context, DetailFragment.class);
-                intent.putExtra("Image", exploreItemList.get(holder.getAdapterPosition()).getImage());
-                intent.putExtra("Title", exploreItemList.get(holder.getAdapterPosition()).getTitle());
-                intent.putExtra("Content", exploreItemList.get(holder.getAdapterPosition()).getContent());
-                intent.putExtra("Author", exploreItemList.get(holder.getAdapterPosition()).getAuthor());
+            holder.textViewContent.setText(""); // Gán mô tả với dữ liệu tiêu đề
+                // Tạo một phiên bản mới của DeviceFragment.
+            DetailFragment detailFragment = new DetailFragment();
+            Bundle bundle = new Bundle();
 
-                context.startActivity(intent);
+            // Đặt vị trí/index của mục được nhấp vào bundle.
+            bundle.putString("Title", exploreItem.getTitle());
+
+            // Đặt bundle như là đối số cho DeviceFragment.
+            detailFragment.setArguments(bundle);
+
+            // Chuyển đến DeviceFragment.
+            FragmentManager fragmentManager = ((AppCompatActivity) view.getContext()).getSupportFragmentManager();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.content_frame, detailFragment)
+                    .addToBackStack(null) // Tùy chọn: Thêm giao dịch vào ngăn xếp quay lại
+                    .commit();
             }
         });
     }
