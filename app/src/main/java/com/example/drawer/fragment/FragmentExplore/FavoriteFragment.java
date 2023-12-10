@@ -8,12 +8,14 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.drawer.Adapter.AdapterExplore.ExploreAdapter;
 import com.example.drawer.Data.DataExplore.ExploreItem;
 import com.example.drawer.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class FavoriteFragment extends Fragment {
@@ -30,8 +32,24 @@ public class FavoriteFragment extends Fragment {
         // LayoutInflater được sử dụng để bố trí (render) giao diện của fragment.
         // "inflater.inflate(R.layout.fragment_favorite, container, false);" bố trí (render) giao diện từ tệp layout fragment_favorite.xml.
 
-        return inflater.inflate(R.layout.fragment_favorite, container, false);
+        View view = inflater.inflate(R.layout.fragment_favorite, container, false);
+        exploreItemList = generateExploreItem();
+        recyclerView = view.findViewById(R.id.recyclerViewExplore);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        exploreAdapter = new ExploreAdapter(getActivity(), exploreItemList);
+        recyclerView.setAdapter(exploreAdapter);
+
+        return view;
     }
 
 
+    private List<ExploreItem> generateExploreItem()
+    {
+        List<ExploreItem> exploreItems = new ArrayList<>();
+        exploreItems.add(new ExploreItem(R.drawable.cay_1, "ABC", "hello", "Mr John"));
+        exploreItems.add(new ExploreItem(R.drawable.cay_1, "ABC", "hello", "Mr John"));
+        exploreItems.add(new ExploreItem(R.drawable.cay_1, "ABC", "hello", "Mr John"));
+
+        return exploreItems;
+    }
 }
