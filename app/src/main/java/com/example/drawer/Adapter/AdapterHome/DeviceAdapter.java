@@ -143,15 +143,15 @@ public class DeviceAdapter extends RecyclerView.Adapter<MyViewHolderDevice> {
             }
         });
         // Regular click listener
-// Đoạn code này nên được đặt trong phương thức onBindViewHolder của Adapter
-holder.recCard.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View v) {
-        // Toggle visibility of recCardTemp
-        int targetHeight = holder.linearLayout.getHeight() == dpToPx(60) ? dpToPx(170) : dpToPx(60);
-        animateViewHeight(holder.linearLayout, targetHeight);
-    }
-});
+        // Đoạn code này nên được đặt trong phương thức onBindViewHolder của Adapter
+        holder.recCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Toggle visibility of recCardTemp
+                int targetHeight = holder.linearLayout.getHeight() == dpToPx(70) ? dpToPx(190) : dpToPx(70);
+                animateViewHeight(holder.linearLayout, targetHeight);
+            }
+        });
 
 
 

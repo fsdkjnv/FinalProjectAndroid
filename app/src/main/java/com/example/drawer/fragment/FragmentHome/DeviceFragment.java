@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -26,7 +27,8 @@ public class DeviceFragment extends Fragment {
     RecyclerView recyclerView;
     List<DataDevice> dataList;
     DeviceAdapter adapter;
-    Toolbar toolbar;
+    CardView CardDevice; // CardView chứa toàn bộ thông tin
+
     String toolbarTitle;
     private static final String PREF_NAME = "DevicePreferences";
     private static final String KEY_DEVICE_LIST = "deviceList";
@@ -44,15 +46,17 @@ public class DeviceFragment extends Fragment {
         dataList = DataManager.getInstance().getRoomDevices(toolbarTitle);
 
         // Cấu hình Toolbar
-        toolbar = rootView.findViewById(R.id.toolbar);
+        CardDevice = rootView.findViewById(R.id.cardViewDevice);
 
-        AppCompatActivity activity = (AppCompatActivity) getActivity();
-
-        if (activity != null) {
-            activity.setSupportActionBar(toolbar);
-            activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            activity.getSupportActionBar().setTitle(toolbarTitle);
-        }
+        CardDevice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Handle the click event (Navigate back or perform any desired action)
+                if (getActivity() != null) {
+                    getActivity().onBackPressed(); // This will simulate pressing the back button
+                }
+            }
+        });
         // tìm Toolbar trong rootView và cấu hình nó.
 
         //Dòng này tìm RecyclerView trong rootView và cấu hình cho nó.
@@ -86,16 +90,6 @@ public class DeviceFragment extends Fragment {
 
                 adapter.notifyDataSetChanged(); // Cập nhật lại dữ liệu trong Adapter
 
-            }
-        });
-
-        // Xử lý sự kiện quay lại khi ấn vào nút trên Toolbar
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (getActivity() != null) {
-                    getActivity().onBackPressed();
-                }
             }
         });
 
