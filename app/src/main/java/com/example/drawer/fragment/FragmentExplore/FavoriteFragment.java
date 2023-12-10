@@ -46,9 +46,21 @@ public class FavoriteFragment extends Fragment {
     private List<ExploreItem> generateExploreItem()
     {
         List<ExploreItem> exploreItems = new ArrayList<>();
-        exploreItems.add(new ExploreItem(R.drawable.cay_1, "ABC", "hello", "Mr John"));
-        exploreItems.add(new ExploreItem(R.drawable.cay_1, "ABC", "hello", "Mr John"));
-        exploreItems.add(new ExploreItem(R.drawable.cay_1, "ABC", "hello", "Mr John"));
+        exploreItems.add(new ExploreItem(R.drawable.flower_1,
+                "Top 5 Gardening Trends for 2022",
+                "According to the 2021 National Gardening Survey, 58% of 35-44 year-olds surveyed said they gardened more because of the pandemic. With the increased time most have spent at home, getting outdoors and in touch with the natural world by practicing mindfulness through growing has brought respite from the stress of the pandemic. Here are the top 5 gardening trends we expect to see in 2022.","Miss Vi"));
+        exploreItems.add(new ExploreItem(R.drawable.flower_2, "What is Certified Organic?",
+                "Per the USDA, in order to be Certified Organic, products must be meet certain criteria. They must be produced using agricultural production practices that:\n" +
+                        "Foster resource cycling\n" +
+                        "Promote ecological balance\n" +
+                        "Maintain and improve soil and water quality\n" +
+                        "Minimize the use of synthetic materials\n" +
+                        "Conserve biodiversity",
+                "Mr Jane"));
+        exploreItems.add(new ExploreItem(R.drawable.flower_3, "Summer 2021 Photo Contest",
+                "We’re lucky to have so many customers willing to share their gorgeous garden creations, whether flower, veggie or herb. They email us daily to show off what’s grown from their Eden Brothers’ seeds or bulbs. Knowing how talented our customers are and how photogenic our products can be, we decided to host a photo contest this summer." +
+                        "Our marketing team launched the Summer 2021 Photo Contest at the end of July thinking we’d get a hundred or so entries",
+                "Mr David"));
 
         return exploreItems;
     }

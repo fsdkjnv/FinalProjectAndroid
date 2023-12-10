@@ -7,56 +7,84 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="320dp"
+        android:layout_height="200dp"
         android:id="@+id/recCardExplore"
         app:cardElevation="8dp"
         app:cardCornerRadius="16dp"
         app:cardUseCompatPadding="true"
-        app:cardBackgroundColor="#E4E3E3"
+        app:cardBackgroundColor="#FFFFFF"
         >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+
+            >
 
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="300dp"
-                android:orientation="vertical">
+                android:layout_height="200dp"
+                android:orientation="vertical"
+                >
                     <TextView
+                        android:layout_marginTop="15dp"
+                        android:layout_marginLeft="10dp"
                         android:id="@+id/recTitleExplore"
                         android:layout_width="180dp"
                         android:layout_height="wrap_content"
                         android:text="Title"
-                        android:textSize="30dp"
+                        android:fontFamily="@font/abel_regular"
+                        android:textSize="20dp"
                         android:textStyle="bold"/>
 
                     <TextView
+                        android:layout_marginLeft="10dp"
                         android:id="@+id/recContent"
                         android:layout_width="180dp"
-                        android:layout_height="150dp"
+                        android:layout_height="60dp"
                         android:text="Content"
-                        android:textSize="20dp" />
+                        android:fontFamily="@font/abel_regular"
+                        android:textSize="15dp" />
 
                      <TextView
-                        android:id="@+id/recAuthor"
+                         android:layout_marginLeft="10dp"
+                         android:id="@+id/recAuthor"
                         android:layout_width="180dp"
                         android:layout_height="wrap_content"
-                        android:text="Author"
-                        android:textSize="30dp"
+                         android:fontFamily="@font/abel_regular"
+                         android:text="Author"
+                        android:textSize="20dp"
                          android:textStyle="bold"
                          />
             </LinearLayout>
 
-            <ImageView
-                android:id="@+id/recImagePlant"
-                android:layout_width="100dp"
-                android:layout_height="300dp"
-                android:layout_weight="4"
-                android:scaleType="centerCrop"
-                android:src="@drawable/cay_1"
-                />
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="170dp"
+                android:id="@+id/temp"
+                app:cardCornerRadius="16dp"
+                app:cardUseCompatPadding="true"
+                app:cardBackgroundColor="#FFFFFF">
+
+                <ImageView
+                    android:id="@+id/recImagePlant"
+                    android:layout_width="match_parent"
+                    android:layout_height="160dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/cay_1" />
+            </androidx.cardview.widget.CardView>
+
+<!--            <ImageView-->
+<!--                android:id="@+id/recImagePlant"-->
+<!--                android:layout_marginTop="15dp"-->
+<!--                android:layout_width="100dp"-->
+<!--                android:layout_height="250dp"-->
+<!--                -->
+<!--                android:layout_weight="4"-->
+<!--                android:scaleType="centerCrop"-->
+<!--                android:src="@drawable/cay_1"-->
+<!--                />-->
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </LinearLayout>

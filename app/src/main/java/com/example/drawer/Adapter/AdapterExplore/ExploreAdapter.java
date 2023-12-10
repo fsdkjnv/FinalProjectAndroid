@@ -13,12 +13,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.drawer.Data.DataExplore.ExploreItem;
 import com.example.drawer.R;
 import com.example.drawer.fragment.FragmentExplore.DetailFragment;
+import com.example.drawer.fragment.FragmentHome.DeviceFragment;
 
 import java.util.List;
 
@@ -63,8 +66,12 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ExploreV
 
             // Đặt vị trí/index của mục được nhấp vào bundle.
             bundle.putString("Title", exploreItem.getTitle());
+            bundle.putString("Content", exploreItem.getContent());
+            bundle.putString("Author", exploreItem.getAuthor());
+            bundle.putInt("Image", exploreItem.getImage());
 
-            // Đặt bundle như là đối số cho DeviceFragment.
+
+                // Đặt bundle như là đối số cho DeviceFragment.
             detailFragment.setArguments(bundle);
 
             // Chuyển đến DeviceFragment.
@@ -73,6 +80,7 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ExploreV
                     .replace(R.id.content_frame, detailFragment)
                     .addToBackStack(null) // Tùy chọn: Thêm giao dịch vào ngăn xếp quay lại
                     .commit();
+
             }
         });
     }
@@ -99,5 +107,4 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ExploreV
             cardView = itemView.findViewById(R.id.recCardExplore);
         }
     }
-
 }
