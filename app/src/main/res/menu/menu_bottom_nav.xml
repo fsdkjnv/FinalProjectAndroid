@@ -7,16 +7,16 @@
 
         <item
             android:id="@+id/nav_favorite"
-            android:icon="@drawable/ic_launcher_foreground"
-            android:title="@string/nav_favorite" />
+            android:icon="@drawable/img_5"
+            android:title="Explore" />
         <item
             android:id="@+id/nav_home"
-            android:icon="@drawable/ic_launcher_foreground"
+            android:icon="@drawable/img_6"
             android:title="@string/menu_home" />
         <item
             android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_account_circle_24"
-            android:title="@string/nav_account" />
+            android:icon="@drawable/img_4"
+            android:title="Me" />
     </group>
 
 </menu>

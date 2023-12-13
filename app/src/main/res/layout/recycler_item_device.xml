@@ -1,6 +1,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="70dp"
+    android:layout_height="65dp"
     android:id="@+id/layoutdevice"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
@@ -10,8 +10,6 @@
         android:layout_height="wrap_content"
         android:id="@+id/recCardevice"
         android:layout_margin="0dp"
-        app:cardCornerRadius="8dp"
-        app:cardUseCompatPadding="true"
        >
 
         <LinearLayout
@@ -77,8 +75,8 @@
                         android:id="@+id/switchButton"
                         android:layout_width="60dp"
                         android:layout_height="60dp"
-                        android:scaleX="1.25"
-                        android:scaleY="1.25"
+                        android:scaleX="1"
+                        android:scaleY="1"
                         android:textSize="14sp" />
                 </LinearLayout>
             </LinearLayout>
@@ -90,6 +88,7 @@
         android:layout_width="match_parent"
         android:layout_height="107dp"
         android:id="@+id/recCardtemp"
+        app:cardBackgroundColor="#EDF2EF"
         android:layout_margin="0dp"
         app:cardCornerRadius="8dp"
         app:cardUseCompatPadding="true"
