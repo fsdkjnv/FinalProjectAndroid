@@ -49,7 +49,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
         holder.recLang.setText(dataclass.getDataLang());
         holder.recDesc.setText(dataclass.getDataDesc());
 
-        final int currentPosition = position;
 
         holder.recCard.setOnClickListener(new View.OnClickListener() {
             @Override

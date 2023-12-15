@@ -8,8 +8,6 @@ import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -19,31 +17,30 @@ import com.example.drawer.Data.DataHome.DataManager;
 import com.example.drawer.Data.DataHome.DataDevice;
 import com.example.drawer.Adapter.AdapterHome.DeviceAdapter;
 import com.example.drawer.R;
+import com.example.drawer.ShareView.Database;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DeviceFragment extends Fragment {
-    /*Các biến recyclerView, dataList, adapter, toolbar và toolbarTitle được khai báo ở đây.*/
     RecyclerView recyclerView;
     List<DataDevice> dataList;
     DeviceAdapter adapter;
-    CardView CardDevice; // CardView chứa toàn bộ thông tin
-
+    CardView CardDevice;
+    Database database;
     String toolbarTitle;
-    private static final String PREF_NAME = "DevicePreferences";
-    private static final String KEY_DEVICE_LIST = "deviceList";
+
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {//Phương thức onCreateView được ghi đè để tạo giao diện người dùng cho Fragment.
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.activity_detail, container, false);
 
-
-        View rootView = inflater.inflate(R.layout.activity_detail, container, false);//Dòng này tạo ra View từ activity_detail.xml và gán cho rootView.
-       // Lấy dữ liệu từ Bundle
         Bundle bundle = getArguments();
         if (bundle != null) {
-           toolbarTitle = bundle.getString("Title");
+            toolbarTitle = bundle.getString("Title");
         }
-        dataList = DataManager.getInstance().getRoomDevices(toolbarTitle);
+
+        dataList = loadDataFromSharedPreferences();
 
         // Cấu hình Toolbar
         CardDevice = rootView.findViewById(R.id.cardViewDevice);
@@ -51,36 +48,35 @@ public class DeviceFragment extends Fragment {
         CardDevice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Handle the click event (Navigate back or perform any desired action)
                 if (getActivity() != null) {
-                    getActivity().onBackPressed(); // This will simulate pressing the back button
+                    getActivity().onBackPressed();
                 }
             }
         });
-        // tìm Toolbar trong rootView và cấu hình nó.
-
-        //Dòng này tìm RecyclerView trong rootView và cấu hình cho nó.
 
         recyclerView = rootView.findViewById(R.id.recyclerViewDevice);
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 1);
         recyclerView.setLayoutManager(gridLayoutManager);
-        //Đoạn mã trên thêm dữ liệu mẫu vào danh sách dataList.
-        if (dataList.isEmpty()){
-        DataDevice androidData = new DataDevice("Basil", "Herb", "Herb", R.drawable.cay_1);
-        dataList.add(androidData);
 
-        androidData = new DataDevice("Mint", "Herb", "Herb", R.drawable.cay_1);
-        dataList.add(androidData);
-
-        androidData = new DataDevice("Lemon Balm", "Herb", "Herb", R.drawable.cay_1);
-        dataList.add(androidData);
+        if (dataList == null) {
+            dataList = new ArrayList<>(); // Khởi tạo danh sách mới nếu dataList là null
         }
 
+        if (dataList.isEmpty()) {
+            DataDevice androidData = new DataDevice("Basil", "Herb", "Herb", R.drawable.cay_1);
+            dataList.add(androidData);
 
-        //Dòng trên tạo adapter mới và thiết lập cho RecyclerView, cũng như xử lý sự kiện khi nhấn nút "Thêm"
-        adapter = new DeviceAdapter(getActivity(), dataList);
+            androidData = new DataDevice("Mint", "Herb", "Herb", R.drawable.cay_1);
+            dataList.add(androidData);
+
+            androidData = new DataDevice("Lemon Balm", "Herb", "Herb", R.drawable.cay_1);
+            dataList.add(androidData);
+        }
+
+        adapter = new DeviceAdapter(getActivity(), dataList, toolbarTitle);
         recyclerView.setAdapter(adapter);
+
         ImageView addButton = rootView.findViewById(R.id.Adddevice);
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,12 +84,23 @@ public class DeviceFragment extends Fragment {
                 DataDevice androidData = new DataDevice("Bóng đèn", "Herb", "", R.drawable.cay_1);
                 DataManager.getInstance().addDeviceToRoom(toolbarTitle, androidData);
 
-                adapter.notifyDataSetChanged(); // Cập nhật lại dữ liệu trong Adapter
+                dataList.add(androidData); // Thêm vào danh sách hiện tại
+                saveDataToSharedPreferences(dataList); // Lưu vào SharedPreferences
 
+                adapter.notifyDataSetChanged();
             }
         });
+
 
         return rootView;
     }
 
+    private List<DataDevice> loadDataFromSharedPreferences() {
+        database = new Database(requireContext());
+        return database.getRecyclerViewDataDevice(toolbarTitle);
+    }
+
+    private void saveDataToSharedPreferences(List<DataDevice> dataList) {
+        database.saveRecyclerViewDataDevice(toolbarTitle, dataList);
+    }
 }

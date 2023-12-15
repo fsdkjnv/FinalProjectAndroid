@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.drawer.Data.DataHome.DataDevice;
 import com.example.drawer.R;
+import com.example.drawer.ShareView.Database;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -31,29 +32,14 @@ public class DeviceAdapter extends RecyclerView.Adapter<MyViewHolderDevice> {
 
     private Context context; // Ngữ cảnh của ứng dụng
     private List<DataDevice> dataList; // Danh sách dữ liệu thiết bị
-
-    public static String convertDeviceListToJson(List<DataDevice> dataList) {
-        Gson gson = new Gson();
-        Type type = new TypeToken<List<DataDevice>>() {}.getType();
-        return gson.toJson(dataList, type);
-    }
-
-    public static List<DataDevice> convertJsonToDeviceList(String json) {
-        Gson gson = new Gson();
-        Type type = new TypeToken<List<DataDevice>>() {}.getType();
-        return gson.fromJson(json, type);
-    }
-
-    // Phương thức này được sử dụng để đặt danh sách tìm kiếm mới và thông báo cho adapter biết rằng dữ liệu đã thay đổi
-    public void setSearchList(List<DataDevice> dataSearchList){
-        this.dataList = dataSearchList;
-        notifyDataSetChanged(); // Thông báo cho adapter biết rằng dữ liệu đã thay đổi
-    }
-
+    private String toolbarTitle; // Thêm biến để lưu trữ toolbarTitle
+    private Database database; // Thêm biến để truy cập Database
     // Phương thức khởi tạo của DeviceAdapter, được sử dụng để khởi tạo adapter với ngữ cảnh và danh sách dữ liệu được cung cấp
-    public DeviceAdapter(Context context, List<DataDevice> dataList){
+   public DeviceAdapter(Context context, List<DataDevice> dataList, String toolbarTitle) {
         this.context = context;
         this.dataList = dataList;
+        this.toolbarTitle = toolbarTitle;
+        this.database = new Database(context);
     }
 
     // Phương thức được ghi đè để tạo một ViewHolder mới từ tệp nguồn recycler_item_device
@@ -127,7 +113,7 @@ public class DeviceAdapter extends RecyclerView.Adapter<MyViewHolderDevice> {
                                 public void onClick(DialogInterface dialog, int which) {
                                     // Xóa mục tại vị trí "currentPosition" trong dataList
                                     dataList.remove(currentPosition);
-                                    // Notify adapter about data changes and reflect the changes in the UI
+                                    saveDataToSharedPreferences(dataList);
                                     notifyItemRemoved(currentPosition);
                                 }
                             })
@@ -189,7 +175,10 @@ public class DeviceAdapter extends RecyclerView.Adapter<MyViewHolderDevice> {
     private int dpToPx(int dp) {
     float density = context.getResources().getDisplayMetrics().density;
     return Math.round((float) dp * density);
-}
+    }
+    private void saveDataToSharedPreferences(List<DataDevice> dataList) {
+        database.saveRecyclerViewDataDevice(toolbarTitle, dataList);
+    }
 }
 
 class MyViewHolderDevice extends RecyclerView.ViewHolder {
