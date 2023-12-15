@@ -19,16 +19,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.drawer.Adapter.AdapterHome.MyAdapter;
 import com.example.drawer.Data.DataHome.DataClass;
 import com.example.drawer.R;
+import com.example.drawer.ShareView.Database;
 import com.example.drawer.ShareView.SharedViewModel;
 
+import java.util.List;
 
 public class HomeFragment extends Fragment {
 
-    //Dòng trên khai báo lớp HomeFragment kế thừa từ lớp Fragment. Đồng thời khai báo biến recyclerView, dataList và adapter
     RecyclerView recyclerView;
     MyAdapter adapter;
     private SharedViewModel sharedViewModel;
-
+    private Database database;
 
     @Nullable
     @Override
@@ -41,18 +42,21 @@ public class HomeFragment extends Fragment {
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 1);
         recyclerView.setLayoutManager(gridLayoutManager);
 
-        adapter = new MyAdapter(getActivity(), sharedViewModel.getInstance().getDataList());
+        // Đọc dữ liệu từ SharedPreferences khi Fragment được tạo
+        List<DataClass> dataList = loadDataFromSharedPreferences();
+
+        adapter = new MyAdapter(getActivity(), dataList);
         recyclerView.setAdapter(adapter);
 
         ImageView addButton = rootView.findViewById(R.id.imageViewAdd);
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Hiển thị hộp thoại nhập dữ liệu ở đây
-                showAddItemDialog();// Phương thức này hiển thị hộp thoại để thêm mục mới
+                showAddItemDialog();
             }
         });
-      return rootView;
+
+        return rootView;
     }
 
     private void showAddItemDialog() {
@@ -62,34 +66,44 @@ public class HomeFragment extends Fragment {
         EditText titleEditText = dialogView.findViewById(R.id.editText);
         titleEditText.requestFocus();
 
-
-        // Sử dụng Handler để tập trung vào EditText sau khi hộp thoại được hiển thị
         builder.setView(dialogView)
                 .setTitle("Thêm mục mới")
                 .setPositiveButton("Thêm", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-
                         String title = titleEditText.getText().toString();
-                        // Làm gì đó với dữ liệu nhập vào ở đây
                         DataClass androidData = new DataClass(title, R.string.rating, "", R.drawable.phongkhach);
                         sharedViewModel.getInstance().addRoom(androidData);
                         adapter.notifyDataSetChanged();
+                        saveDataToSharedPreferences(sharedViewModel.getInstance().getDataList());
                         dialog.dismiss();
-
                     }
-
-                }
-                )
+                })
                 .setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        // Đóng hộp thoại nếu người dùng chọn Hủy
                         dialog.dismiss();
                     }
                 });
-        // Thiết lập cho phép hiển thị bàn phím ứng dụng khi hộp thoại mở ra
+
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
     }
 
+    private void saveDataToSharedPreferences(List<DataClass> dataList) {
+        database = new Database(requireContext());
+        database.saveRecyclerViewData(dataList);
+    }
 
+    private List<DataClass> loadDataFromSharedPreferences() {
+        // Đọc dữ liệu từ SharedPreferences
+        database = new Database(requireContext());
+        List<DataClass> dataList = database.getRecyclerViewData();
+
+        // Kiểm tra xem dữ liệu có tồn tại không và sử dụng nó (ví dụ: đặt vào RecyclerView adapter)
+        if (dataList != null) {
+            sharedViewModel.getInstance().setDataList(dataList);
+        }
+
+        return dataList;
+    }
 }
+

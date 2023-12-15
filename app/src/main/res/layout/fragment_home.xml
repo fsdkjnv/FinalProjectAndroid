@@ -42,7 +42,6 @@
                 android:layout_weight="1"
                 android:scrollbars="vertical" />
         </LinearLayout>
-    </androidx.cardview.widget.CardView>
 
     <ImageView
         android:id="@+id/imageViewAdd"
@@ -55,4 +54,6 @@
         android:src="@drawable/img_1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+    </androidx.cardview.widget.CardView>
+
 </androidx.constraintlayout.motion.widget.MotionLayout>

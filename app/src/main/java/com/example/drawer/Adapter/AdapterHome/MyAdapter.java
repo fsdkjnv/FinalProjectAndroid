@@ -18,102 +18,94 @@ import android.app.AlertDialog;
 
 import com.example.drawer.Data.DataHome.DataClass;
 import com.example.drawer.R;
+import com.example.drawer.ShareView.Database;
 import com.example.drawer.fragment.FragmentHome.DeviceFragment;
-
-public class MyAdapter extends RecyclerView.Adapter<com.example.drawer.Adapter.AdapterHome.MyViewHolder> {
+public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
     private Context context;
     private List<DataClass> dataList;
+    private Database database;
 
-    // khai báo lớp MyAdapter kế thừa từ RecyclerView.Adapter và khởi tạo các biến context và dataList.
     public MyAdapter(Context context, List<DataClass> dataList) {
         this.context = context;
         this.dataList = dataList;
+        this.database = new Database(context);
     }
 
     @NonNull
     @Override
-    //Phương thức onCreateViewHolder tạo một MyViewHolder mới khi cần hiển thị một item danh sách.
-    public com.example.drawer.Adapter.AdapterHome.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_item, parent, false);
-        return new com.example.drawer.Adapter.AdapterHome.MyViewHolder(view);
+        return new MyViewHolder(view);
     }
 
     @Override
-    //Phương thức onBindViewHolder gắn dữ liệu từ dataList vào MyViewHolder để hiển thị thông tin cho mỗi item danh sách.
-    public void onBindViewHolder(@NonNull com.example.drawer.Adapter.AdapterHome.MyViewHolder holder, int position) {
-    DataClass dataclass = dataList.get(position);
-    if (dataclass == null) {
-        return;
-    }
-    holder.recImage.setImageResource(dataclass.getDataImage());
-    holder.recTitle.setText(dataclass.getDataTitle());
-    holder.recLang.setText(dataclass.getDataLang());
-    holder.recDesc.setText(dataclass.getDataDesc());
-
-    final int currentPosition = position; // Declare as final
-
-        // Xử lý sự kiện khi người dùng nhấn vào item trong danh sách
-    holder.recCard.setOnClickListener(new View.OnClickListener() {
-        @Override
-
-        public void onClick(View view) {
-
-            // Tạo một phiên bản mới của DeviceFragment.
-            DeviceFragment deviceFragment = new DeviceFragment();
-            Bundle bundle = new Bundle();
-            // Đặt vị trí/index của mục được nhấp vào bundle.
-            bundle.putString("Title", dataclass.getDataTitle());
-
-            // Đặt bundle như là đối số cho DeviceFragment.
-            deviceFragment.setArguments(bundle);
-
-            // Chuyển đến DeviceFragment.
-            FragmentManager fragmentManager = ((AppCompatActivity) view.getContext()).getSupportFragmentManager();
-            fragmentManager.beginTransaction()
-                    .replace(R.id.content_frame, deviceFragment)
-                    .addToBackStack(null) // Tùy chọn: Thêm giao dịch vào ngăn xếp quay lại
-                    .commit();
+    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+        DataClass dataclass = dataList.get(position);
+        if (dataclass == null) {
+            return;
         }
-    });
+        holder.recImage.setImageResource(dataclass.getDataImage());
+        holder.recTitle.setText(dataclass.getDataTitle());
+        holder.recLang.setText(dataclass.getDataLang());
+        holder.recDesc.setText(dataclass.getDataDesc());
 
-    // Xử lý sự kiện khi người dùng nhấn giữ lâu trên item trong danh sách
-    holder.recCard.setOnLongClickListener(new View.OnLongClickListener() {
-        @Override
-        public boolean onLongClick(View v) {
-            int currentPosition = holder.getAdapterPosition();
-            if (currentPosition != RecyclerView.NO_POSITION) {
-                new AlertDialog.Builder(context)
-                        .setTitle("Xác nhận xóa")
-                        .setMessage("Bạn có chắc chắn muốn xóa mục này không?")
-                        .setPositiveButton("Xóa", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                // Xóa mục tại vị trí "currentPosition" trong dataList
-                                dataList.remove(currentPosition);
-                                // Notify adapter about data changes and reflect the changes in the UI
-                                notifyItemRemoved(currentPosition);
-                            }
-                        })
-                        .setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        })
-                        .show();
+        final int currentPosition = position;
+
+        holder.recCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DeviceFragment deviceFragment = new DeviceFragment();
+                Bundle bundle = new Bundle();
+                bundle.putString("Title", dataclass.getDataTitle());
+                deviceFragment.setArguments(bundle);
+                FragmentManager fragmentManager = ((AppCompatActivity) context).getSupportFragmentManager();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.content_frame, deviceFragment)
+                        .addToBackStack(null)
+                        .commit();
             }
-            return true;
-        }
-    });
+        });
 
-
-
-}
-
+        holder.recCard.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                int currentPosition = holder.getAdapterPosition();
+                if (currentPosition != RecyclerView.NO_POSITION) {
+                    new AlertDialog.Builder(context)
+                            .setTitle("Xác nhận xóa")
+                            .setMessage("Bạn có chắc chắn muốn xóa mục này không?")
+                            .setPositiveButton("Xóa", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    // Xóa mục tại vị trí "currentPosition" trong dataList
+                                    dataList.remove(currentPosition);
+                                    // Lưu dữ liệu vào SharedPreferences sau khi xóa
+                                    saveDataToSharedPreferences(dataList);
+                                    // Notify adapter about data changes and reflect the changes in the UI
+                                    notifyItemRemoved(currentPosition);
+                                }
+                            })
+                            .setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            })
+                            .show();
+                }
+                return true;
+            }
+        });
+    }
 
     @Override
     public int getItemCount() {
         return dataList.size();
+    }
+
+    private void saveDataToSharedPreferences(List<DataClass> dataList) {
+        // Lưu dữ liệu vào SharedPreferences
+        database.saveRecyclerViewData(dataList);
     }
 }
 

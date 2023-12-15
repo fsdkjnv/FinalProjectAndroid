@@ -83,7 +83,9 @@ public class MainActivity extends AppCompatActivity {
                 });
 
         // Thiết lập fragment mặc định
-        replaceFragment(new HomeFragment());
+        replaceFragment(new FavoriteFragment());
+
+
     }
 
     @Override
