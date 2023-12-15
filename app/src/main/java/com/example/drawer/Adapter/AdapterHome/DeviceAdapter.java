@@ -77,7 +77,7 @@ public class DeviceAdapter extends RecyclerView.Adapter<MyViewHolderDevice> {
         holder.recImage.setImageResource(dataclass.getDataImage()); // Đặt hình ảnh cho ImageView
         holder.recTitle.setText(String.valueOf(dataclass.getDataTitle())); // Đặt tiêu đề với dữ liệu được trả về
 
-        holder.recDesc.setText(""); // Gán mô tả với dữ liệu tiêu đề
+        holder.recDesc.setText(String.valueOf(dataclass.getDataDesc())); // Gán mô tả với dữ liệu tiêu đề
 
         holder.recCard.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -148,7 +148,7 @@ public class DeviceAdapter extends RecyclerView.Adapter<MyViewHolderDevice> {
             @Override
             public void onClick(View v) {
                 // Toggle visibility of recCardTemp
-                int targetHeight = holder.linearLayout.getHeight() == dpToPx(65) ? dpToPx(170) : dpToPx(65);
+                int targetHeight = holder.linearLayout.getHeight() == dpToPx(67) ? dpToPx(175) : dpToPx(67);
                 animateViewHeight(holder.linearLayout, targetHeight);
             }
         });

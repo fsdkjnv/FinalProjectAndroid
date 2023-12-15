@@ -1,6 +1,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="65dp"
+    android:layout_height="67dp"
     android:id="@+id/layoutdevice"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/recCardevice"
-        android:layout_margin="0dp"
+        android:layout_margin="3dp"
        >
 
         <LinearLayout
@@ -54,6 +54,7 @@
                         android:layout_height="wrap_content"
                         android:maxLines="1"
                         android:fontFamily="@font/abel_regular"
+                        android:textColor="#06492C"
                         android:text="Seekbar:"
                         android:textSize="12sp" />
 

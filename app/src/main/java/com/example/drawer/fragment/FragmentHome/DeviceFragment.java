@@ -67,13 +67,13 @@ public class DeviceFragment extends Fragment {
         recyclerView.setLayoutManager(gridLayoutManager);
         //Đoạn mã trên thêm dữ liệu mẫu vào danh sách dataList.
         if (dataList.isEmpty()){
-        DataDevice androidData = new DataDevice("Basil", 1, "Herb", R.drawable.cay_1);
+        DataDevice androidData = new DataDevice("Basil", "Herb", "Herb", R.drawable.cay_1);
         dataList.add(androidData);
 
-        androidData = new DataDevice("Mint", 2, "Herb", R.drawable.cay_1);
+        androidData = new DataDevice("Mint", "Herb", "Herb", R.drawable.cay_1);
         dataList.add(androidData);
 
-        androidData = new DataDevice("Lemon Balm", 3, "Herb", R.drawable.cay_1);
+        androidData = new DataDevice("Lemon Balm", "Herb", "Herb", R.drawable.cay_1);
         dataList.add(androidData);
         }
 
@@ -85,7 +85,7 @@ public class DeviceFragment extends Fragment {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DataDevice androidData = new DataDevice("Bóng đèn", 3, "", R.drawable.cay_1);
+                DataDevice androidData = new DataDevice("Bóng đèn", "Herb", "", R.drawable.cay_1);
                 DataManager.getInstance().addDeviceToRoom(toolbarTitle, androidData);
 
                 adapter.notifyDataSetChanged(); // Cập nhật lại dữ liệu trong Adapter

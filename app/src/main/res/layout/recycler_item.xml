@@ -11,9 +11,10 @@
         android:layout_height="216dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginTop="0dp"
-        android:layout_marginBottom="20dp"
-        app:cardCornerRadius="5dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="0dp"
+        app:cardElevation="8dp"
+        app:cardCornerRadius="15dp"
         app:cardUseCompatPadding="true">
 
         <FrameLayout

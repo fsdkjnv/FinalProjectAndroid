@@ -48,6 +48,7 @@ public class MyAdapter extends RecyclerView.Adapter<com.example.drawer.Adapter.A
     holder.recImage.setImageResource(dataclass.getDataImage());
     holder.recTitle.setText(dataclass.getDataTitle());
     holder.recLang.setText(dataclass.getDataLang());
+    holder.recDesc.setText(dataclass.getDataDesc());
 
     final int currentPosition = position; // Declare as final
 

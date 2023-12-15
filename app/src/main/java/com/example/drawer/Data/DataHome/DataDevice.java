@@ -2,7 +2,7 @@ package com.example.drawer.Data.DataHome;
 
 public class DataDevice {
     private String dataTitle; // Tiêu đề dữ liệu
-    private int dataDesc; // Mô tả dữ liệu
+    private String dataDesc; // Mô tả dữ liệu
     private String dataLang; // Ngôn ngữ dữ liệu
     private int dataImage; // Hình ảnh dữ liệu
 
@@ -10,7 +10,7 @@ public class DataDevice {
         return dataTitle;
     }
 
-    public int getDataDesc() {
+    public String getDataDesc() {
         return dataDesc;
     }
 
@@ -22,7 +22,7 @@ public class DataDevice {
         return dataImage;
     }
 
-    public DataDevice(String dataTitle, int dataDesc, String dataLang, int dataImage) {
+    public DataDevice(String dataTitle, String dataDesc, String dataLang, int dataImage) {
         this.dataTitle = dataTitle; // Khởi tạo tiêu đề dữ liệu
         this.dataDesc = dataDesc; // Khởi tạo mô tả dữ liệu
         this.dataLang = dataLang; // Khởi tạo ngôn ngữ dữ liệu
