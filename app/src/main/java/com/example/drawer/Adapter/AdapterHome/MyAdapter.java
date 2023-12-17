@@ -47,7 +47,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
         holder.recImage.setImageResource(dataclass.getDataImage());
         holder.recTitle.setText(dataclass.getDataTitle());
         holder.recLang.setText(dataclass.getDataLang());
-        holder.recDesc.setText(dataclass.getDataDesc());
+        holder.recDesc.setText(String.valueOf(dataclass.getDataDesc()));
 
 
         holder.recCard.setOnClickListener(new View.OnClickListener() {

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "235052572748",
+    "project_id": "login-and-signup-861cd",
+    "storage_bucket": "login-and-signup-861cd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:235052572748:android:4857d4844ac9255998d4e9",
+        "android_client_info": {
+          "package_name": "com.example.drawer"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAi6cScjR0NslEFWf3rHtUxKMn_g-jJuRQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
