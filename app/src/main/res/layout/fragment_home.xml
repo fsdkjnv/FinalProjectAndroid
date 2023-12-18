@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F5FDFB"
+    android:background="#FFFF"
     android:fitsSystemWindows="true"
     app:layoutDescription="@xml/fragment_home_scene"
     tools:context=".MainActivity">
@@ -12,8 +12,8 @@
     <!-- Background Image -->
     <ImageView
         android:id="@+id/background"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="422dp"
+        android:layout_height="236dp"
         android:contentDescription="Background Icon"
         android:src="@drawable/backgrou"
         app:layout_constraintDimensionRatio="H,16:9"
@@ -38,10 +38,15 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
+        android:layout_width="412dp"
+        android:layout_height="632dp"
         android:background="@drawable/rounded_background"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
         android:scrollbars="vertical"
-        tools:layout_editor_absoluteY="245dp" />
+        app:layout_constraintBottom_toTopOf="@id/imageViewAdd"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/background"
+        app:layout_constraintVertical_bias="0.115" />
 
 </androidx.constraintlayout.motion.widget.MotionLayout>

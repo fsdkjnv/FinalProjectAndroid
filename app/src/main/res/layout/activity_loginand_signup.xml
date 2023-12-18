@@ -5,9 +5,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/img_7"
     tools:context=".LoginandSignup">
-
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="380dp"
         android:layout_height="0dp"
@@ -24,7 +25,6 @@
             android:layout_height="630dp"
             android:id="@+id/view_pager"
             app:layout_constraintVertical_bias="0"
-            android:background="@drawable/viewpager_bkg"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -35,12 +35,12 @@
             android:layout_height="60dp"
             android:id="@+id/tab_layout"
             app:layout_constraintVertical_bias="0"
-            android:background="@drawable/tab_bkg"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

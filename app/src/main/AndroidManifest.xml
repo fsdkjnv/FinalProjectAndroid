@@ -14,6 +14,8 @@
 
         <activity
             android:name=".LoginandSignup"
+            android:theme="@style/Theme.Drawer.NoActionBar"
+
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
