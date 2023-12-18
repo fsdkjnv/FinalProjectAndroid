@@ -1,6 +1,8 @@
 package com.example.drawer.fragment.FragmentMe;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,22 +17,28 @@ import com.example.drawer.LoginandSignup;
 import com.example.drawer.R;
 
 public class SlideshowFragment extends Fragment {
-    Button btn_logout;
+    private Button btn_logout;
+    private SharedPreferences sharedPreferences;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        // inflate (nạp) một fragment layout trong Android. Hàm onCreateView trong một Fragment được sử dụng để tạo giao diện người dùng của Fragment đó.
-        // Cụ thể, mã này sẽ inflate layout được đặt tên là "fragment_favorite" và hiển thị nó trong container (không gian hiển thị) của Fragment.
         View view = inflater.inflate(R.layout.fragment_sildeshow, container, false);
 
         btn_logout = view.findViewById(R.id.logout_button);
+        sharedPreferences = getActivity().getSharedPreferences("loginPrefs", Context.MODE_PRIVATE);
 
         btn_logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               startActivity(new Intent(getActivity(), LoginandSignup.class));
-               getActivity().finish();
+                // Xóa thông tin đăng nhập từ SharedPreferences
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.remove("loggedIn");
+                editor.apply();
+
+                // Mở lại trang đăng nhập
+                startActivity(new Intent(getActivity(), LoginandSignup.class));
+                getActivity().finish();
             }
         });
 
