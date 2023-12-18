@@ -15,8 +15,9 @@
         android:clipToOutline="true"
         android:outlineProvider="background"/>
 
-    <!-- Text Views -->
+    <!-- Email TextView -->
     <TextView
+        android:id="@+id/email_textview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Thông tin 1"
@@ -24,7 +25,9 @@
         android:textColor="@color/black"
         android:layout_marginBottom="10dp"/>
 
+    <!-- Name TextView -->
     <TextView
+        android:id="@+id/name_textview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Thông tin 2"
@@ -32,7 +35,9 @@
         android:textColor="@color/black"
         android:layout_marginBottom="10dp"/>
 
+    <!-- Phone Number TextView -->
     <TextView
+        android:id="@+id/phone_textview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Thông tin 3"
@@ -41,7 +46,6 @@
         android:layout_marginBottom="10dp"/>
 
     <!-- Circular Image View -->
-
 
     <!-- Logout Button -->
     <Button
