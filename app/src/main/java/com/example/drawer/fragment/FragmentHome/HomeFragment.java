@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.drawer.Adapter.AdapterHome.MyAdapter;
 import com.example.drawer.Data.DataHome.DataClass;
+import com.example.drawer.Data.MyDataSingleton;
 import com.example.drawer.R;
 import com.example.drawer.ShareView.Database;
 import com.example.drawer.ShareView.SharedViewModel;
@@ -30,6 +31,7 @@ public class HomeFragment extends Fragment {
     MyAdapter adapter;
     private SharedViewModel sharedViewModel;
     private Database database;
+    String userEmail = MyDataSingleton.getInstance().getUserEmail();
 
     @Nullable
     @Override
@@ -45,7 +47,7 @@ public class HomeFragment extends Fragment {
         // Đọc dữ liệu từ SharedPreferences khi Fragment được tạo
         List<DataClass> dataList = loadDataFromSharedPreferences();
 
-        adapter = new MyAdapter(getActivity(), dataList);
+        adapter = new MyAdapter(getActivity(), dataList, userEmail);
         recyclerView.setAdapter(adapter);
 
         ImageView addButton = rootView.findViewById(R.id.imageViewAdd);
@@ -90,13 +92,13 @@ public class HomeFragment extends Fragment {
 
     private void saveDataToSharedPreferences(List<DataClass> dataList) {
         database = new Database(requireContext());
-        database.saveRecyclerViewData(dataList);
+        database.saveRecyclerViewData(userEmail, dataList);
     }
 
     private List<DataClass> loadDataFromSharedPreferences() {
         // Đọc dữ liệu từ SharedPreferences
         database = new Database(requireContext());
-        List<DataClass> dataList = database.getRecyclerViewData();
+        List<DataClass> dataList = database.getRecyclerViewData(userEmail);
 
         // Kiểm tra xem dữ liệu có tồn tại không và sử dụng nó (ví dụ: đặt vào RecyclerView adapter)
         if (dataList != null) {

@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import java.util.ArrayList;
 import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,11 +26,15 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
     private Context context;
     private List<DataClass> dataList;
     private Database database;
+// In HomeFragment or the next fragment
+// Now you have the userEmail value in your fragment
+    private String userEmail;
 
-    public MyAdapter(Context context, List<DataClass> dataList) {
+    public MyAdapter(Context context, List<DataClass> dataList, String userEmail) {
         this.context = context;
-        this.dataList = dataList;
+        this.dataList = dataList != null ? dataList : new ArrayList<>();
         this.database = new Database(context);
+        this.userEmail = userEmail;
     }
 
     @NonNull
@@ -97,14 +103,15 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
         });
     }
 
+
     @Override
     public int getItemCount() {
-        return dataList.size();
+        return dataList != null ? dataList.size() : 0;
     }
 
     private void saveDataToSharedPreferences(List<DataClass> dataList) {
         // Lưu dữ liệu vào SharedPreferences
-        database.saveRecyclerViewData(dataList);
+        database.saveRecyclerViewData(userEmail,dataList);
     }
 }
 

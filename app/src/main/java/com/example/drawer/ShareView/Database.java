@@ -14,7 +14,7 @@ import java.util.List;
 
 public class Database {
     private static final String SHARED_PREF_NAME = "RecyclerViewData";
-    private static final String KEY_RECYCLER_VIEW_DATA = "recyclerViewData";
+    private static final String KEY_RECYCLER_VIEW_DATA_PREFIX = "recyclerViewData_";  // Use a prefix for user-specific keys
 
     private SharedPreferences sharedPreferences;
     private Gson gson;
@@ -24,39 +24,45 @@ public class Database {
         gson = new Gson();
     }
 
+    private String getUserKey(String username) {
+        // Append the username to the prefix to create a unique key for each user
+        return KEY_RECYCLER_VIEW_DATA_PREFIX + username;
+    }
+
     // Đọc dữ liệu từ SharedPreferences cho DataClass
-    public List<DataClass> getRecyclerViewData() {
-        String json = sharedPreferences.getString(KEY_RECYCLER_VIEW_DATA, null);
+    public List<DataClass> getRecyclerViewData(String username) {
+        String key = getUserKey(username);
+        String json = sharedPreferences.getString(key, null);
         Type type = new TypeToken<List<DataClass>>() {}.getType();
         return gson.fromJson(json, type);
     }
 
     // Ghi dữ liệu vào SharedPreferences cho DataClass
-    public void saveRecyclerViewData(List<DataClass> dataList) {
-        String json = gson.toJson(dataList);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(KEY_RECYCLER_VIEW_DATA, json);
-        editor.apply();
-    }
-
-    // Đọc dữ liệu từ SharedPreferences cho DataDevice
-    // Đọc dữ liệu từ SharedPreferences cho DataDevice
-    public List<DataDevice> getRecyclerViewDataDevice(String key) {
-        String json = sharedPreferences.getString(key, null);
-        Type type = new TypeToken<List<DataDevice>>() {}.getType();
-        return gson.fromJson(json, type);
-    }
-
-    // Ghi dữ liệu vào SharedPreferences cho DataDevice
-    public void saveRecyclerViewDataDevice(String key, List<DataDevice> dataList) {
+    public void saveRecyclerViewData(String username, List<DataClass> dataList) {
+        String key = getUserKey(username);
         String json = gson.toJson(dataList);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(key, json);
         editor.apply();
     }
-    public void deleteRecyclerViewDataDevice(String key) {
+
+    // Đọc dữ liệu từ SharedPreferences cho DataDevice
+    public List<DataDevice> getRecyclerViewDataDevice(String username, String key) {
+        String userKey = getUserKey(username) + "_" + key;
+        String json = sharedPreferences.getString(userKey, null);
+        Type type = new TypeToken<List<DataDevice>>() {}.getType();
+        return gson.fromJson(json, type);
+    }
+
+    // Ghi dữ liệu vào SharedPreferences cho DataDevice
+    public void saveRecyclerViewDataDevice(String username, String key, List<DataDevice> dataList) {
+        String userKey = getUserKey(username) + "_" + key;
+        String json = gson.toJson(dataList);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.remove(key);
+        editor.putString(userKey, json);
         editor.apply();
     }
+
+    // Xóa dữ liệu từ SharedPreferences cho DataDevice
+
 }

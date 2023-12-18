@@ -13,6 +13,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.example.drawer.Data.MyDataSingleton;
 import com.example.drawer.LoginandSignup;
 import com.example.drawer.MainActivity;
 import com.example.drawer.R;
@@ -42,6 +43,8 @@ public class Signup_Fragment extends Fragment {
             public void onClick(View view) {
                 String user = signupEmail.getText().toString().trim();
                 String pass = signupPassword.getText().toString().trim();
+                MyDataSingleton.getInstance().setUserEmail(user);
+
                 if (user.isEmpty()) {
                     signupEmail.setError("Email cannot be empty");
                 } else if (pass.isEmpty()) {

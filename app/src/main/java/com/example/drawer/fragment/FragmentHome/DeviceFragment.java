@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.drawer.Data.DataHome.DataManager;
 import com.example.drawer.Data.DataHome.DataDevice;
 import com.example.drawer.Adapter.AdapterHome.DeviceAdapter;
+import com.example.drawer.Data.MyDataSingleton;
 import com.example.drawer.R;
 import com.example.drawer.ShareView.Database;
 
@@ -29,6 +30,9 @@ public class DeviceFragment extends Fragment {
     CardView CardDevice;
     Database database;
     String toolbarTitle;
+// In HomeFragment or the next fragment
+     String userEmail = MyDataSingleton.getInstance().getUserEmail();
+// Now you have the userEmail value in your fragment
 
     @Nullable
     @Override
@@ -74,7 +78,7 @@ public class DeviceFragment extends Fragment {
             dataList.add(androidData);
         }
 
-        adapter = new DeviceAdapter(getActivity(), dataList, toolbarTitle);
+        adapter = new DeviceAdapter(getActivity(), dataList, toolbarTitle, userEmail);
         recyclerView.setAdapter(adapter);
 
         ImageView addButton = rootView.findViewById(R.id.Adddevice);
@@ -97,10 +101,10 @@ public class DeviceFragment extends Fragment {
 
     private List<DataDevice> loadDataFromSharedPreferences() {
         database = new Database(requireContext());
-        return database.getRecyclerViewDataDevice(toolbarTitle);
+        return database.getRecyclerViewDataDevice(userEmail,toolbarTitle);
     }
 
     private void saveDataToSharedPreferences(List<DataDevice> dataList) {
-        database.saveRecyclerViewDataDevice(toolbarTitle, dataList);
+        database.saveRecyclerViewDataDevice(userEmail,toolbarTitle, dataList);
     }
 }

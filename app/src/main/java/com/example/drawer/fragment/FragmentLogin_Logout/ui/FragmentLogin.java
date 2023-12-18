@@ -17,6 +17,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.example.drawer.Data.MyDataSingleton;
 import com.example.drawer.MainActivity;
 import com.example.drawer.R;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -29,7 +30,6 @@ public class FragmentLogin extends Fragment {
     private EditText loginEmail, loginPassword;
     private Button loginButton;
     private FirebaseAuth auth;
-    private TextView forgotPassword;
     private SharedPreferences sharedPreferences;
 
     @Override
@@ -46,6 +46,12 @@ public class FragmentLogin extends Fragment {
 
         // Check if the user is already logged in
         if (sharedPreferences.getBoolean("loggedIn", false)) {
+            String savedEmail = sharedPreferences.getString("userEmail", "");
+            MyDataSingleton.getInstance().setUserEmail(savedEmail);
+
+            // Auto-fill the email field
+            loginEmail.setText(savedEmail);
+
             startActivity(new Intent(getActivity(), MainActivity.class));
             getActivity().finish();
         }
@@ -55,6 +61,7 @@ public class FragmentLogin extends Fragment {
             public void onClick(View v) {
                 String email = loginEmail.getText().toString();
                 String pass = loginPassword.getText().toString();
+                MyDataSingleton.getInstance().setUserEmail(email);
 
                 if (!email.isEmpty() && Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
                     if (!pass.isEmpty()) {
@@ -62,12 +69,11 @@ public class FragmentLogin extends Fragment {
                                 .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                                     @Override
                                     public void onSuccess(AuthResult authResult) {
-                                        // Save login status
+                                        // Save login status and user email
                                         SharedPreferences.Editor editor = sharedPreferences.edit();
                                         editor.putBoolean("loggedIn", true);
+                                        editor.putString("userEmail", email);
                                         editor.apply();
-
-                                        Toast.makeText(getActivity(), "Login Successful", Toast.LENGTH_SHORT).show();
                                         startActivity(new Intent(getActivity(), MainActivity.class));
                                         getActivity().finish();
                                     }

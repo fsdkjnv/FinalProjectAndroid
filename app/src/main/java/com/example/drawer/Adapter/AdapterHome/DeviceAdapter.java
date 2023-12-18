@@ -34,12 +34,16 @@ public class DeviceAdapter extends RecyclerView.Adapter<MyViewHolderDevice> {
     private List<DataDevice> dataList; // Danh sách dữ liệu thiết bị
     private String toolbarTitle; // Thêm biến để lưu trữ toolbarTitle
     private Database database; // Thêm biến để truy cập Database
+    private String userEmail;
+
     // Phương thức khởi tạo của DeviceAdapter, được sử dụng để khởi tạo adapter với ngữ cảnh và danh sách dữ liệu được cung cấp
-   public DeviceAdapter(Context context, List<DataDevice> dataList, String toolbarTitle) {
+   public DeviceAdapter(Context context, List<DataDevice> dataList, String toolbarTitle, String userEmail) {
         this.context = context;
         this.dataList = dataList;
         this.toolbarTitle = toolbarTitle;
         this.database = new Database(context);
+        this.userEmail = userEmail;
+
     }
 
     // Phương thức được ghi đè để tạo một ViewHolder mới từ tệp nguồn recycler_item_device
@@ -177,7 +181,7 @@ public class DeviceAdapter extends RecyclerView.Adapter<MyViewHolderDevice> {
     return Math.round((float) dp * density);
     }
     private void saveDataToSharedPreferences(List<DataDevice> dataList) {
-        database.saveRecyclerViewDataDevice(toolbarTitle, dataList);
+        database.saveRecyclerViewDataDevice(userEmail,toolbarTitle, dataList);
     }
 }
 
