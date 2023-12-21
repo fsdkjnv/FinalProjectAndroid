@@ -1,31 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFF"
+    android:background="#F5FDFB"
     android:fitsSystemWindows="true"
-    app:layoutDescription="@xml/fragment_home_scene"
     tools:context=".MainActivity">
 
-    <!-- Background Image -->
+    <!-- Text Above RecyclerView -->
 
-    <!-- CardView wrapping RecyclerView -->
+    <!-- RecyclerView with rounded corners -->
 
-    <!-- Floating Action Button -->
-
-    <ImageView
-        android:id="@+id/background"
-        android:layout_width="422dp"
-        android:layout_height="236dp"
-        android:contentDescription="Background Icon"
-        android:src="@drawable/img_13"
-        app:layout_constraintDimensionRatio="H,16:9"
-        app:layout_constraintEnd_toEndOf="parent"
+    <TextView
+        android:id="@+id/textAboveRecyclerView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/abel_regular"
+        android:text="Hello, Vo Vi 🌿"
+        android:textColor="#06492C"
+        android:textSize="30sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:scrollbars="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textAboveRecyclerView" />
+
+    <!-- Floating Action Button -->
     <ImageView
         android:id="@+id/imageViewAdd"
         android:layout_width="50dp"
@@ -38,15 +49,4 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="412dp"
-        android:layout_height="1032dp"
-        android:background="@drawable/rounded_background"
-        android:scrollbars="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-         />
-
-</androidx.constraintlayout.motion.widget.MotionLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -8,6 +8,8 @@ import android.os.Bundle;
 
 import com.example.drawer.Adapter.ViewAdapter.ViewPagerAdapter;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class LoginandSignup extends AppCompatActivity {
     private TabLayout tabLayout;
@@ -16,7 +18,6 @@ public class LoginandSignup extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loginand_signup);
         tabLayout = findViewById(R.id.tab_layout);

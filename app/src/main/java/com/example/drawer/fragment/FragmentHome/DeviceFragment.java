@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -33,12 +34,11 @@ public class DeviceFragment extends Fragment {
 // In HomeFragment or the next fragment
      String userEmail = MyDataSingleton.getInstance().getUserEmail();
 // Now you have the userEmail value in your fragment
-
+   TextView txtRoom;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.activity_detail, container, false);
-
         Bundle bundle = getArguments();
         if (bundle != null) {
             toolbarTitle = bundle.getString("Title");
@@ -48,7 +48,8 @@ public class DeviceFragment extends Fragment {
 
         // Cấu hình Toolbar
         CardDevice = rootView.findViewById(R.id.cardViewDevice);
-
+        txtRoom = rootView.findViewById(R.id.txtRoom);
+        txtRoom.setText(toolbarTitle);
         CardDevice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

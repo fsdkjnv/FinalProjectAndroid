@@ -3,57 +3,123 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="#F5FDFB"
     android:padding="20dp">
 
-    <ImageView
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:src="@drawable/phongngu"
-        android:layout_gravity="center"
-        android:background="@drawable/circle_background"
-        android:layout_marginTop="10dp"
-        android:clipToOutline="true"
-        android:outlineProvider="background"/>
-
-    <!-- Email TextView -->
+    <!-- Heyname TextView without underline -->
     <TextView
-        android:id="@+id/email_textview"
+        android:id="@+id/heyname_textview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Thông tin 1"
-        android:textSize="18sp"
-        android:textColor="@color/black"
-        android:layout_marginBottom="10dp"/>
+        android:text="Hey, Vo vi 😄"
+        android:textSize="30sp"
+        android:textColor="#000000"
+        android:layout_marginBottom="10dp"
+        android:background="@null"
+        android:fontFamily="@font/abel_regular"/>
 
-    <!-- Name TextView -->
+    <ImageView
+        android:layout_width="168dp"
+        android:layout_height="167dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/circle_background"
+        android:clipToOutline="true"
+        android:outlineProvider="background"
+        android:src="@drawable/phongngu" />
+
+    <!-- Name TextView without underline -->
     <TextView
         android:id="@+id/name_textview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Thông tin 2"
+        android:text="esddt text"
         android:textSize="18sp"
-        android:textColor="@color/black"
-        android:layout_marginBottom="10dp"/>
+        android:textColor="#000000"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
+        android:background="@null"
+        android:fontFamily="@font/abel_regular"/>
+    <!-- Add a comment above the TextView -->
+    <!-- This is the Name TextView -->
 
-    <!-- Phone Number TextView -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2.5dp"
+        android:background="#85000000"/>
+
+    <!-- Email TextView without underline -->
+    <TextView
+        android:id="@+id/email_textview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="esddt text"
+        android:textSize="18sp"
+        android:textColor="#000000"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
+        android:background="@null"
+        android:fontFamily="@font/abel_regular"/>
+    <!-- Add a comment above the TextView -->
+    <!-- This is the Email TextView -->
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2.5dp"
+        android:background="#85000000"/>
+
+    <!-- Phone TextView without underline -->
     <TextView
         android:id="@+id/phone_textview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Thông tin 3"
+        android:text="esddt text"
         android:textSize="18sp"
-        android:textColor="@color/black"
-        android:layout_marginBottom="10dp"/>
+        android:textColor="#000000"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
+        android:background="@null"
+        android:fontFamily="@font/abel_regular"/>
+    <!-- Add a comment above the TextView -->
+    <!-- This is the Phone TextView -->
 
-    <!-- Circular Image View -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2.5dp"
+        android:background="#85000000"/>
 
-    <!-- Logout Button -->
-    <Button
+    <!-- Password TextView without underline -->
+    <TextView
+        android:id="@+id/password_textview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="esddt text"
+        android:textSize="18sp"
+        android:textColor="#000000"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
+        android:background="@null"
+        android:fontFamily="@font/abel_regular"/>
+    <!-- Add a comment above the TextView -->
+    <!-- This is the Password TextView -->
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2.5dp"
+        android:background="#85000000"/>
+
+    <!-- Logout Button without underline -->
+    <Button
         android:id="@+id/logout_button"
-        android:text="Log Out"
-        android:textColor="@android:color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:backgroundTint="#0C9359"
-        android:layout_marginTop="20dp"/>
+        android:text="LOG OUT"
+        android:textColor="#FFFFFF"
+        android:background="@null"
+        android:fontFamily="@font/abel_regular"/>
+    <!-- Add a comment above the Button -->
+    <!-- This is the Logout Button -->
+
 </LinearLayout>

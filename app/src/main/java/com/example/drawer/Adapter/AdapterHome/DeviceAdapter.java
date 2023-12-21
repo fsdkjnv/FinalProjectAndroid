@@ -138,7 +138,7 @@ public class DeviceAdapter extends RecyclerView.Adapter<MyViewHolderDevice> {
             @Override
             public void onClick(View v) {
                 // Toggle visibility of recCardTemp
-                int targetHeight = holder.linearLayout.getHeight() == dpToPx(67) ? dpToPx(175) : dpToPx(67);
+                int targetHeight = holder.linearLayout.getHeight() == dpToPx(70) ? dpToPx(175) : dpToPx(70);
                 animateViewHeight(holder.linearLayout, targetHeight);
             }
         });

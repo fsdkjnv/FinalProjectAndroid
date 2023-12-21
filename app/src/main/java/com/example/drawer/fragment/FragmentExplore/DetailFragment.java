@@ -22,6 +22,7 @@ public class DetailFragment extends Fragment {
     TextView textViewContent;
     TextView textViewAuthor;
     CardView CardExpolre; // CardView chứa toàn bộ thông tin
+    TextView Txtroom;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -32,6 +33,7 @@ public class DetailFragment extends Fragment {
         textViewTitle = rootView.findViewById(R.id.recTitleExplore);
         textViewContent = rootView.findViewById(R.id.recContent);
         textViewAuthor = rootView.findViewById(R.id.recAuthor);
+
         Bundle bundle = getArguments();
         if (bundle != null) {
             imageView.setImageResource(bundle.getInt("Image"));

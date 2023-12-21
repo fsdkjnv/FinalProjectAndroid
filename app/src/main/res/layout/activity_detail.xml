@@ -4,8 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="#F5FDFB"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#F5FDFB">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardViewDevice"
@@ -47,46 +47,59 @@
 
     <!-- ImageView for background -->
 
-    <!-- CardView wrapping RecyclerView -->
+    <!-- TextView below the background -->
+
+    <!-- RecyclerView -->
+
+    <!-- CardView for RecyclerView with elevation -->
     <ImageView
         android:id="@+id/background"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="482dp"
+        android:layout_height="248dp"
         android:contentDescription="Background Icon"
         android:src="@drawable/backgrou"
+        app:layout_constraintDimensionRatio="H,16:9"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/txtRoom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="12dp"
+        android:elevation="2dp"
+        android:fontFamily="@font/abel_regular"
+        android:text="Living Room"
+        android:textColor="#06492C"
+        android:textSize="30sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/background" />
+
     <androidx.cardview.widget.CardView
-        android:id="@+id/recyclerViewcard"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:cardElevation="8dp"
-        android:layout_below="@+id/background"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="22dp"
-        android:layout_marginEnd="22dp"
-        android:layout_marginTop="190dp"> <!-- Ràng buộc để nằm trên Adddevice -->
+        android:id="@+id/cardViewRecyclerView"
+        android:layout_width="370dp"
+        android:layout_height="620dp"
+        app:cardCornerRadius="12dp"
+        app:cardUseCompatPadding="true"
+        app:cardElevation="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtRoom">
 
-        <LinearLayout
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewDevice"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="500dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:scrollbars="vertical" />
 
-            <!-- RecyclerView -->
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerViewDevice"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:scrollbars="vertical" />
-        </LinearLayout>
     </androidx.cardview.widget.CardView>
 
-    <!-- ImageView at the bottom -->
+    <!-- Floating Action Button -->
     <ImageView
         android:id="@+id/Adddevice"
         android:layout_width="48dp"

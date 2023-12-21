@@ -67,7 +67,6 @@
                 android:layout_marginTop="30dp"
                 android:id="@+id/login_button"
                 android:textSize="18sp"
-
                 android:text="Login"
                 app:cornerRadius = "30dp"/>
 

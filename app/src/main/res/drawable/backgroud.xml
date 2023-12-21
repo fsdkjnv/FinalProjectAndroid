@@ -1,0 +1,14 @@
+<!-- res/drawable/custom_background.xml -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="#FFFFFF" /> <!-- Set the color you want for the background -->
+    <corners
+        android:topLeftRadius="18dp"
+        android:topRightRadius="8dp"
+        android:bottomLeftRadius="0dp"
+        android:bottomRightRadius="0dp" />
+
+    <!-- Add elevation to create a shadow effect -->
+    <item android:state_pressed="true" android:elevation="4dp" />
+    <item android:elevation="2dp" />
+
+</shape>

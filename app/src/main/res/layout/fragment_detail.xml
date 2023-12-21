@@ -55,6 +55,7 @@
                     android:id="@+id/recTitleExplore"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/abel_regular"
                     android:text="Title"
                     android:textSize="30dp"
                     android:textStyle="bold"/>
@@ -63,11 +64,13 @@
                     android:id="@+id/recContent"
                     android:layout_width="match_parent"
                     android:layout_height="300dp"
+                    android:fontFamily="@font/abel_regular"
                     android:text="Content"
                     android:textSize="20dp" />
 
                 <TextView
                     android:id="@+id/recAuthor"
+                    android:fontFamily="@font/abel_regular"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Author"
