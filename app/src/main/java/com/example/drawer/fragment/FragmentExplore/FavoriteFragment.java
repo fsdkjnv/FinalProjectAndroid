@@ -62,6 +62,14 @@ public class FavoriteFragment extends Fragment {
                         "Our marketing team launched the Summer 2021 Photo Contest at the end of July thinking we’d get a hundred or so entries",
                 "Mr David"));
 
+        exploreItems.add(new ExploreItem(R.drawable.flower_4, "Your Guide to Fall Vegetable Planting",
+                        "As the vibrant hues of summer fade and a cool breeze begins to hint at the changing season, we as gardeners and plant enthusiasts eagerly anticipate the arrival of fall. While many may associate spring with planting, autumn presents a fantastic opportunity to continue cultivating your green space and enjoying a bountiful harvest. But let’s be honest, transitioning to a fall garden after all the work we’ve put in during the summer can be hard. Sometimes it’s nice to pack up the garden, so to speak, and work on something different. Also, in the higher zones, fall is often hotter or just as hot as summer, which prevents planting straight away after the school year begins. Nevertheless, fall vegetable planting, whenever that happens in your area, opens up a world of possibilities, allowing us to savor fresh produce even as the days grow shorter. What we plant in the fall is so different from what was growing during the summer, and our waning strength is often galvanized by that. In this blog, we’ll explore the joys and benefits of fall vegetable planting and provide you with some essential tips to make the most of this season.",
+                "Mr Kane"));
+
+        exploreItems.add(new ExploreItem(R.drawable.flower_5, "Pumpkin Pollination",
+                        "The story isn’t a new one – Your pumpkin vine is truly magnificent, boasting a robust and healthy appearance with its lush, deep green leaves and abundant blossoms. Big, gorgeous yellow blooms open and close, but day after day you realize something—the absence of any signs of fruit. What is wrong? Tomatoes and beans are forming in your summer garden, but your pumpkin vine is big and beautiful… and lonely, with no young pumpkins forming. Do you need to intervene? Won’t nature take care of this? You may be wondering whether pumpkins possess the ability to self-pollinate or if your intervention is required. If manual pollination is necessary, how do you do it?",
+                "Mr Tuna"));
+
         return exploreItems;
     }
 }
