@@ -38,7 +38,7 @@ public class HomeFragment extends Fragment {
     String userEmail = MyDataSingleton.getInstance().getUserEmail();
     FirebaseDatabaseHelper firebaseDatabaseHelper;
     String encodedEmail = encodeEmail(userEmail);
-    String title;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -132,7 +132,7 @@ public class HomeFragment extends Fragment {
                     sharedViewModel.getInstance().setDataList(dataList);
 
                     // Initialize the adapter with loaded data
-                    adapter = new MyAdapter(getActivity(), dataList, userEmail, title);
+                    adapter = new MyAdapter(getActivity(), dataList, userEmail);
 
                     // Set the adapter to the RecyclerView
                     recyclerView.setAdapter(adapter);

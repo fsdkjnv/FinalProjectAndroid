@@ -3,6 +3,7 @@ package com.example.drawer.Adapter.AdapterHome;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -92,6 +93,7 @@ public class DeviceAdapter extends RecyclerView.Adapter<MyViewHolderDevice> {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                    String encodedEmail = encodeEmail(userEmail);
+
                                     dataList.remove(currentPosition);
                                     firebaseDatabaseHelper.saveRecyclerViewDataDevice(encodedEmail,toolbarTitle, dataList);
                                     notifyItemRemoved(currentPosition);
@@ -119,9 +121,11 @@ public class DeviceAdapter extends RecyclerView.Adapter<MyViewHolderDevice> {
                             .setPositiveButton("Xóa", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    // Xóa mục tại vị trí "currentPosition" trong dataList
+                                   String encodedEmail = encodeEmail(userEmail);
                                     dataList.remove(currentPosition);
                                     saveDataToSharedPreferences(dataList);
+                                   Log.e("Firebase", "Error deleting data: " );
+                                    firebaseDatabaseHelper.saveRecyclerViewDataDevice(encodedEmail,toolbarTitle, dataList);
 
                                     notifyItemRemoved(currentPosition);
                                 }

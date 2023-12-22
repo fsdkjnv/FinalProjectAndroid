@@ -35,12 +35,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
     FirebaseDatabaseHelper firebaseDatabaseHelper;
     String encodedEmail;
 
-    public MyAdapter(Context context, List<DataClass> dataList, String userEmail, String namehome) {
+    public MyAdapter(Context context, List<DataClass> dataList, String userEmail) {
         this.context = context;
         this.dataList = dataList != null ? dataList : new ArrayList<>();
         this.database = new Database(context);
         this.userEmail = userEmail;
-        this.nameHome = namehome;
         this.firebaseDatabaseHelper = new FirebaseDatabaseHelper(); // Add this line
 
     }

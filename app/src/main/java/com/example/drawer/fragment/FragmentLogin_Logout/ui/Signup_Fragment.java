@@ -1,6 +1,8 @@
 package com.example.drawer.fragment.FragmentLogin_Logout.ui;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,6 +29,7 @@ public class Signup_Fragment extends Fragment {
     private EditText signupEmail, signupPassword;
     private Button signupButton;
     private TextView loginRedirectText;
+    private SharedPreferences sharedPreferences;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -37,7 +40,8 @@ public class Signup_Fragment extends Fragment {
         signupEmail = view.findViewById(R.id.signup_email);
         signupPassword = view.findViewById(R.id.signup_password);
         signupButton = view.findViewById(R.id.signup_button);
-
+        auth = FirebaseAuth.getInstance();
+        sharedPreferences = getActivity().getSharedPreferences("loginPrefs", Context.MODE_PRIVATE);
         signupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -55,7 +59,12 @@ public class Signup_Fragment extends Fragment {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
                                 Toast.makeText(getActivity(), "SignUp Successful", Toast.LENGTH_SHORT).show();
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                editor.putBoolean("loggedIn", true);
+                                editor.putString("userEmail", user);
+                                editor.apply();
                                 startActivity(new Intent(getActivity(), MainActivity.class));
+
                                 getActivity().finish();
 
                             } else {
