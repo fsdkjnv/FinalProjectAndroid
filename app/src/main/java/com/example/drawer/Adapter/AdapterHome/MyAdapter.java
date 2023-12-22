@@ -21,6 +21,7 @@ import android.app.AlertDialog;
 import com.example.drawer.Data.DataHome.DataClass;
 import com.example.drawer.R;
 import com.example.drawer.ShareView.Database;
+import com.example.drawer.ShareView.FirebaseDatabaseHelper;
 import com.example.drawer.fragment.FragmentHome.DeviceFragment;
 public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
     private Context context;
@@ -29,18 +30,26 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
 // In HomeFragment or the next fragment
 // Now you have the userEmail value in your fragment
     private String userEmail;
+    private String nameHome;
 
-    public MyAdapter(Context context, List<DataClass> dataList, String userEmail) {
+    FirebaseDatabaseHelper firebaseDatabaseHelper;
+    String encodedEmail;
+
+    public MyAdapter(Context context, List<DataClass> dataList, String userEmail, String namehome) {
         this.context = context;
         this.dataList = dataList != null ? dataList : new ArrayList<>();
         this.database = new Database(context);
         this.userEmail = userEmail;
+        this.nameHome = namehome;
+        this.firebaseDatabaseHelper = new FirebaseDatabaseHelper(); // Add this line
+
     }
 
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_item, parent, false);
+
         return new MyViewHolder(view);
     }
 
@@ -56,38 +65,51 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
         holder.recDesc.setText(String.valueOf(dataclass.getDataDesc()));
 
 
-        holder.recCard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+    holder.recCard.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            int adapterPosition = holder.getAdapterPosition();
+            if (adapterPosition != RecyclerView.NO_POSITION) {
+                DataClass dataclass = dataList.get(adapterPosition);
+
                 DeviceFragment deviceFragment = new DeviceFragment();
                 Bundle bundle = new Bundle();
+                bundle.putInt("Position", adapterPosition);
                 bundle.putString("Title", dataclass.getDataTitle());
                 deviceFragment.setArguments(bundle);
+
                 FragmentManager fragmentManager = ((AppCompatActivity) context).getSupportFragmentManager();
                 fragmentManager.beginTransaction()
                         .replace(R.id.content_frame, deviceFragment)
                         .addToBackStack(null)
                         .commit();
             }
-        });
+        }
+    });
+
 
         holder.recCard.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
                 int currentPosition = holder.getAdapterPosition();
+                    int adapterPosition = holder.getAdapterPosition();
+
                 if (currentPosition != RecyclerView.NO_POSITION) {
+                    DataClass dataclass = dataList.get(adapterPosition);
+                    String title=dataclass.getDataTitle();
+
                     new AlertDialog.Builder(context)
                             .setTitle("Xác nhận xóa")
                             .setMessage("Bạn có chắc chắn muốn xóa mục này không?")
                             .setPositiveButton("Xóa", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    // Xóa mục tại vị trí "currentPosition" trong dataList
+                                   String encodedEmail = encodeEmail(userEmail);
                                     dataList.remove(currentPosition);
                                     // Lưu dữ liệu vào SharedPreferences sau khi xóa
-                                    saveDataToSharedPreferences(dataList);
-                                    // Notify adapter about data changes and reflect the changes in the UI
-                                    notifyItemRemoved(currentPosition);
+                                    firebaseDatabaseHelper.saveRecyclerViewData(encodedEmail, dataList);
+                                    firebaseDatabaseHelper.deleteRecyclerViewDataDevice(encodedEmail, title);
+                                notifyItemRemoved(currentPosition);
                                 }
                             })
                             .setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
@@ -109,10 +131,10 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
         return dataList != null ? dataList.size() : 0;
     }
 
-    private void saveDataToSharedPreferences(List<DataClass> dataList) {
-        // Lưu dữ liệu vào SharedPreferences
-        database.saveRecyclerViewData(userEmail,dataList);
+     public static String encodeEmail(String email) {
+        return email.replace(".", ",");
     }
+
 }
 
 class MyViewHolder extends RecyclerView.ViewHolder {

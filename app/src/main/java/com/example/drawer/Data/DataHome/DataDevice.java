@@ -21,7 +21,9 @@ public class DataDevice {
     public int getDataImage() {
         return dataImage;
     }
-
+      public DataDevice() {
+            // Có thể để trống hoặc thêm các khởi tạo mặc định nếu cần
+        }
     public DataDevice(String dataTitle, String dataDesc, String dataLang, int dataImage) {
         this.dataTitle = dataTitle; // Khởi tạo tiêu đề dữ liệu
         this.dataDesc = dataDesc; // Khởi tạo mô tả dữ liệu

@@ -21,7 +21,9 @@ public class DataClass {
     public int getDataImage() {
         return dataImage;
     }
-
+    public DataClass() {
+        // Default constructor, can be empty or initialized with default values
+    }
     public DataClass(String dataTitle, int dataDesc, String dataLang, int dataImage) {
         this.dataTitle = dataTitle; // Khởi tạo tiêu đề dữ liệu
         this.dataDesc = dataDesc; // Khởi tạo mô tả dữ liệu

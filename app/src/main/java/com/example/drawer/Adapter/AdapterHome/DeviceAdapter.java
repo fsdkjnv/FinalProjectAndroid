@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 import android.app.AlertDialog;
 import android.widget.Toast;
@@ -23,12 +24,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.drawer.Data.DataHome.DataDevice;
 import com.example.drawer.R;
 import com.example.drawer.ShareView.Database;
+import com.example.drawer.ShareView.FirebaseDatabaseHelper;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 
 public class DeviceAdapter extends RecyclerView.Adapter<MyViewHolderDevice> {
+    FirebaseDatabaseHelper firebaseDatabaseHelper;
 
     private Context context; // Ngữ cảnh của ứng dụng
     private List<DataDevice> dataList; // Danh sách dữ liệu thiết bị
@@ -39,10 +42,11 @@ public class DeviceAdapter extends RecyclerView.Adapter<MyViewHolderDevice> {
     // Phương thức khởi tạo của DeviceAdapter, được sử dụng để khởi tạo adapter với ngữ cảnh và danh sách dữ liệu được cung cấp
    public DeviceAdapter(Context context, List<DataDevice> dataList, String toolbarTitle, String userEmail) {
         this.context = context;
-        this.dataList = dataList;
+        this.dataList = dataList != null ? dataList : new ArrayList<>();
         this.toolbarTitle = toolbarTitle;
         this.database = new Database(context);
         this.userEmail = userEmail;
+        this.firebaseDatabaseHelper = new FirebaseDatabaseHelper(); // Add this line
 
     }
 
@@ -87,9 +91,9 @@ public class DeviceAdapter extends RecyclerView.Adapter<MyViewHolderDevice> {
                             .setPositiveButton("Xóa", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    // Xóa mục tại vị trí "currentPosition" trong dataList
+                                   String encodedEmail = encodeEmail(userEmail);
                                     dataList.remove(currentPosition);
-                                    // Notify adapter about data changes and reflect the changes in the UI
+                                    firebaseDatabaseHelper.saveRecyclerViewDataDevice(encodedEmail,toolbarTitle, dataList);
                                     notifyItemRemoved(currentPosition);
                                 }
                             })
@@ -118,6 +122,7 @@ public class DeviceAdapter extends RecyclerView.Adapter<MyViewHolderDevice> {
                                     // Xóa mục tại vị trí "currentPosition" trong dataList
                                     dataList.remove(currentPosition);
                                     saveDataToSharedPreferences(dataList);
+
                                     notifyItemRemoved(currentPosition);
                                 }
                             })
@@ -157,8 +162,11 @@ public class DeviceAdapter extends RecyclerView.Adapter<MyViewHolderDevice> {
     }
 
     @Override
-    public int getItemCount() {
-        return dataList.size();
+     public int getItemCount() {
+        return dataList != null ? dataList.size() : 0;
+    }
+    public static String encodeEmail(String email) {
+        return email.replace(".", ",");
     }
 
 // Helper method to animate the height change
@@ -179,6 +187,16 @@ public class DeviceAdapter extends RecyclerView.Adapter<MyViewHolderDevice> {
     private int dpToPx(int dp) {
     float density = context.getResources().getDisplayMetrics().density;
     return Math.round((float) dp * density);
+    }
+        public void setData(List<DataDevice> newData) {
+        // Clear the existing data
+        dataList.clear();
+
+        // Add the new data
+        dataList.addAll(newData);
+
+        // Notify the adapter that the data set has changed
+        notifyDataSetChanged();
     }
     private void saveDataToSharedPreferences(List<DataDevice> dataList) {
         database.saveRecyclerViewDataDevice(userEmail,toolbarTitle, dataList);

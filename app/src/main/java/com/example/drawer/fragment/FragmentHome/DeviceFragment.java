@@ -1,6 +1,7 @@
 package com.example.drawer.fragment.FragmentHome;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,101 +12,173 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.drawer.Data.DataHome.DataManager;
+import com.example.drawer.Adapter.AdapterHome.MyAdapter;
 import com.example.drawer.Data.DataHome.DataDevice;
 import com.example.drawer.Adapter.AdapterHome.DeviceAdapter;
+import com.example.drawer.Data.DataHome.DataManager;
 import com.example.drawer.Data.MyDataSingleton;
 import com.example.drawer.R;
 import com.example.drawer.ShareView.Database;
+import com.example.drawer.ShareView.FirebaseDatabaseHelper;
+import com.example.drawer.ShareView.SharedViewModel;
+import com.example.drawer.ShareView.SharedViewModelDevice;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import android.content.DialogInterface;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.app.AlertDialog;
+import android.widget.EditText;
+import android.widget.ImageView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.drawer.Adapter.AdapterHome.MyAdapter;
+import com.example.drawer.Data.DataHome.DataClass;
+import com.example.drawer.Data.MyDataSingleton;
+import com.example.drawer.R;
+import com.example.drawer.ShareView.Database;
+import com.example.drawer.ShareView.FirebaseDatabaseHelper;
+import com.example.drawer.ShareView.SharedViewModel;
+import com.google.firebase.database.DatabaseError;
 
 import java.util.ArrayList;
 import java.util.List;
 
+
+
+
 public class DeviceFragment extends Fragment {
-    RecyclerView recyclerView;
-    List<DataDevice> dataList;
-    DeviceAdapter adapter;
-    CardView CardDevice;
-    Database database;
-    String toolbarTitle;
-// In HomeFragment or the next fragment
-     String userEmail = MyDataSingleton.getInstance().getUserEmail();
-// Now you have the userEmail value in your fragment
-   TextView txtRoom;
+    private RecyclerView recyclerView;
+    private List<DataDevice> dataList;
+    private DeviceAdapter adapter;
+    private CardView cardDevice;
+    private FirebaseDatabaseHelper firebaseDatabaseHelper;
+    private String encodedEmail;
+    private String toolbarTitle;
+    private String userEmail;
+    private TextView txtRoom;
+    private SharedViewModelDevice sharedViewModel;
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.activity_detail, container, false);
-        Bundle bundle = getArguments();
-        if (bundle != null) {
-            toolbarTitle = bundle.getString("Title");
-        }
+        public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+            View rootView = inflater.inflate(R.layout.activity_detail, container, false);
+           sharedViewModel = new ViewModelProvider(requireActivity()).get(SharedViewModelDevice.class);
+            Bundle bundle = getArguments();
+            if (bundle != null) {
+                toolbarTitle = bundle.getString("Title");
 
-        dataList = loadDataFromSharedPreferences();
+            }
+            userEmail = MyDataSingleton.getInstance().getUserEmail();
+            encodedEmail = FirebaseDatabaseHelper.encodeEmail(userEmail);
+            firebaseDatabaseHelper = new FirebaseDatabaseHelper();
+            dataList = sharedViewModel.getDeviceList(); // Retrieve dataList from ViewModel
+             loadDataFromFirebaseData() ;
 
-        // Cấu hình Toolbar
-        CardDevice = rootView.findViewById(R.id.cardViewDevice);
-        txtRoom = rootView.findViewById(R.id.txtRoom);
-        txtRoom.setText(toolbarTitle);
-        CardDevice.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (getActivity() != null) {
-                    getActivity().onBackPressed();
+            // Cấu hình Toolbar
+            cardDevice = rootView.findViewById(R.id.cardViewDevice);
+            txtRoom = rootView.findViewById(R.id.txtRoom);
+            txtRoom.setText(toolbarTitle);
+            cardDevice.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (getActivity() != null) {
+                        getActivity().onBackPressed();
+                    }
                 }
-            }
-        });
+            });
 
-        recyclerView = rootView.findViewById(R.id.recyclerViewDevice);
+            recyclerView = rootView.findViewById(R.id.recyclerViewDevice);
 
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 1);
-        recyclerView.setLayoutManager(gridLayoutManager);
+            GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 1);
+            recyclerView.setLayoutManager(gridLayoutManager);
 
-        if (dataList == null) {
-            dataList = new ArrayList<>(); // Khởi tạo danh sách mới nếu dataList là null
+            ImageView addButton = rootView.findViewById(R.id.Adddevice);
+            addButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showAddItemDialog();
+                }
+            });
+
+           loadDataFromFirebaseData() ;
+            return rootView;
+        }
+        private void showAddItemDialog() {
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            LayoutInflater inflater = requireActivity().getLayoutInflater();
+            View dialogView = inflater.inflate(R.layout.dialog_add_item, null);
+            EditText titleEditText = dialogView.findViewById(R.id.editText);
+            titleEditText.requestFocus();
+
+            builder.setView(dialogView)
+                    .setTitle("Thêm mục mới")
+                    .setPositiveButton("Thêm", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            String title = titleEditText.getText().toString();
+                            DataDevice androidData = new DataDevice(title, "Herb", "", R.drawable.cay_1);
+                            sharedViewModel.getInstance().addDevice(androidData);
+                         // Notify the adapter that the data set has changed
+
+                           adapter.notifyDataSetChanged();
+
+
+                            // Save the updated data to Firebase
+                           firebaseDatabaseHelper.saveRecyclerViewDataDevice(encodedEmail, toolbarTitle, sharedViewModel.getInstance().getDeviceList());
+
+                            dialog.dismiss();
+                        }
+                    })
+                    .setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.dismiss();
+                        }
+                    });
+
+            AlertDialog alertDialog = builder.create();
+            alertDialog.show();
         }
 
-        if (dataList.isEmpty()) {
-            DataDevice androidData = new DataDevice("Basil", "Herb", "Herb", R.drawable.cay_1);
-            dataList.add(androidData);
+        public void loadDataFromFirebaseData() {
+            firebaseDatabaseHelper.getRecyclerViewDataDevice(encodedEmail,toolbarTitle, new FirebaseDatabaseHelper.OnDataLoadedListenerDevice<DataDevice>() {
+                @Override
+                public void onDataLoaded(List<DataDevice> dataList) {
+                    // Update the UI here, e.g., update the adapter
+                    if (dataList != null) {
+                        // Initialize the adapter if it is null
+                        // Update the existing adapter with the new data
+                            sharedViewModel.getInstance().setDeviceList(dataList);
+                            adapter = new DeviceAdapter(getActivity() ,dataList, toolbarTitle, userEmail);
 
-            androidData = new DataDevice("Mint", "Herb", "Herb", R.drawable.cay_1);
-            dataList.add(androidData);
+                            recyclerView.setAdapter(adapter);
 
-            androidData = new DataDevice("Lemon Balm", "Herb", "Herb", R.drawable.cay_1);
-            dataList.add(androidData);
+                            // Notify the adapter that the data set has changed
+                            adapter.notifyDataSetChanged();
+
+                    }
+                }
+
+                @Override
+                public void onCancelled(String errorMessage) {
+                    // Handle errors
+                    Log.e("FirebaseDatabaseHelper", "Data loading cancelled: " + errorMessage);
+                }
+            });
         }
-
-        adapter = new DeviceAdapter(getActivity(), dataList, toolbarTitle, userEmail);
-        recyclerView.setAdapter(adapter);
-
-        ImageView addButton = rootView.findViewById(R.id.Adddevice);
-        addButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DataDevice androidData = new DataDevice("Bóng đèn", "Herb", "", R.drawable.cay_1);
-                DataManager.getInstance().addDeviceToRoom(toolbarTitle, androidData);
-
-                dataList.add(androidData); // Thêm vào danh sách hiện tại
-                saveDataToSharedPreferences(dataList); // Lưu vào SharedPreferences
-
-                adapter.notifyDataSetChanged();
-            }
-        });
-
-
-        return rootView;
     }
 
-    private List<DataDevice> loadDataFromSharedPreferences() {
-        database = new Database(requireContext());
-        return database.getRecyclerViewDataDevice(userEmail,toolbarTitle);
-    }
 
-    private void saveDataToSharedPreferences(List<DataDevice> dataList) {
-        database.saveRecyclerViewDataDevice(userEmail,toolbarTitle, dataList);
-    }
-}
