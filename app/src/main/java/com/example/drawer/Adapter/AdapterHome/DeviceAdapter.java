@@ -73,7 +73,9 @@ public class DeviceAdapter extends RecyclerView.Adapter<MyViewHolderDevice> {
         holder.recTitle.setText(String.valueOf(dataclass.getDataTitle())); // Đặt tiêu đề với dữ liệu được trả về
 
         holder.recDesc.setText(String.valueOf(dataclass.getDataDesc())); // Gán mô tả với dữ liệu tiêu đề
-
+        holder.nhietdo.setText(String.valueOf(dataclass.getNhietdo()));
+        holder.doam.setText(String.valueOf(dataclass.getDoam()));
+        holder.switchButton.setChecked(dataclass.isSwitchOn());
         holder.recCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -152,16 +154,25 @@ public class DeviceAdapter extends RecyclerView.Adapter<MyViewHolderDevice> {
             }
         });
 
-        holder.switchButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                if (isChecked) {
-                 Toast.makeText(context, "Watering is turned on", Toast.LENGTH_SHORT).show();
-                } else {
-                 Toast.makeText(context, "Watering is turned off", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+                 holder.switchButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                        String encodedEmail = encodeEmail(userEmail);
+
+                        // Assuming dataclass is the current item in the list that corresponds to the SwitchButton
+                        dataclass.setSwitchOn(isChecked);
+
+                        if (isChecked) {
+                            Toast.makeText(context, "Watering is turned on", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(context, "Watering is turned off", Toast.LENGTH_SHORT).show();
+                        }
+
+                        // Save the updated data to Firebase
+                        firebaseDatabaseHelper.saveRecyclerViewDataDevice(encodedEmail, toolbarTitle, dataList);
+                    }
+                });
+
 
     }
 
@@ -212,9 +223,9 @@ class MyViewHolderDevice extends RecyclerView.ViewHolder {
     public Switch switchButton;
     ImageView recImage;
     TextView recTitle, recDesc;
-     LinearLayout linearLayout;
-
+    LinearLayout linearLayout;
     CardView recCard, recCardTemp;
+    TextView nhietdo, doam;
 
     public MyViewHolderDevice(@NonNull View itemView) {
         super(itemView);
@@ -225,7 +236,8 @@ class MyViewHolderDevice extends RecyclerView.ViewHolder {
         recCard = itemView.findViewById(R.id.recCardevice); // Thẻ
         recCardTemp = itemView.findViewById(R.id.recCardtemp); // Thẻ
         linearLayout = itemView.findViewById(R.id.layoutdevice); // Thẻ
-
+        nhietdo = itemView.findViewById(R.id.nhietdo); // Hình ảnh
+        doam = itemView.findViewById(R.id.doam); // Tiêu đề
 
     }
 }

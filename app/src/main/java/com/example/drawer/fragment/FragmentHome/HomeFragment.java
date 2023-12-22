@@ -34,7 +34,6 @@ public class HomeFragment extends Fragment {
     RecyclerView recyclerView;
     MyAdapter adapter;
     private SharedViewModel sharedViewModel;
-    private Database database;
     String userEmail = MyDataSingleton.getInstance().getUserEmail();
     FirebaseDatabaseHelper firebaseDatabaseHelper;
     String encodedEmail = encodeEmail(userEmail);
@@ -50,9 +49,7 @@ public class HomeFragment extends Fragment {
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 1);
         recyclerView.setLayoutManager(gridLayoutManager);
 
-        // Đọc dữ liệu từ SharedPreferences khi Fragment được tạo
-        //List<DataClass> dataList = loadDataFromSharedPreferences();
-        loadDataFromFirebase();
+       // loadDataFromFirebase();
 
         //adapter = new MyAdapter(getActivity(), dataList, userEmail);
       //  recyclerView.setAdapter(adapter);
@@ -105,23 +102,6 @@ public class HomeFragment extends Fragment {
         alertDialog.show();
     }
 
-    private void saveDataToSharedPreferences(List<DataClass> dataList) {
-        database = new Database(requireContext());
-        database.saveRecyclerViewData(userEmail, dataList);
-    }
-
-    private List<DataClass> loadDataFromSharedPreferences() {
-        // Đọc dữ liệu từ SharedPreferences
-        database = new Database(requireContext());
-        List<DataClass> dataList = database.getRecyclerViewData(userEmail);
-
-        // Kiểm tra xem dữ liệu có tồn tại không và sử dụng nó (ví dụ: đặt vào RecyclerView adapter)
-        if (dataList != null) {
-            sharedViewModel.getInstance().setDataList(dataList);
-        }
-
-        return dataList;
-    }
 
     private void loadDataFromFirebase() {
         firebaseDatabaseHelper.getRecyclerViewData(encodedEmail, new FirebaseDatabaseHelper.OnDataLoadedListener() {

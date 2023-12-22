@@ -22,15 +22,9 @@ import com.example.drawer.Adapter.AdapterHome.DeviceAdapter;
 import com.example.drawer.Data.DataHome.DataManager;
 import com.example.drawer.Data.MyDataSingleton;
 import com.example.drawer.R;
-import com.example.drawer.ShareView.Database;
 import com.example.drawer.ShareView.FirebaseDatabaseHelper;
-import com.example.drawer.ShareView.SharedViewModel;
 import com.example.drawer.ShareView.SharedViewModelDevice;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
@@ -39,24 +33,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.app.AlertDialog;
 import android.widget.EditText;
-import android.widget.ImageView;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.example.drawer.Adapter.AdapterHome.MyAdapter;
-import com.example.drawer.Data.DataHome.DataClass;
-import com.example.drawer.Data.MyDataSingleton;
-import com.example.drawer.R;
-import com.example.drawer.ShareView.Database;
-import com.example.drawer.ShareView.FirebaseDatabaseHelper;
-import com.example.drawer.ShareView.SharedViewModel;
-import com.google.firebase.database.DatabaseError;
-
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -77,7 +54,7 @@ public class DeviceFragment extends Fragment {
     @Override
         public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.activity_detail, container, false);
-           sharedViewModel = new ViewModelProvider(requireActivity()).get(SharedViewModelDevice.class);
+            sharedViewModel = new ViewModelProvider(requireActivity()).get(SharedViewModelDevice.class);
             Bundle bundle = getArguments();
             if (bundle != null) {
                 toolbarTitle = bundle.getString("Title");
@@ -87,8 +64,6 @@ public class DeviceFragment extends Fragment {
             encodedEmail = FirebaseDatabaseHelper.encodeEmail(userEmail);
             firebaseDatabaseHelper = new FirebaseDatabaseHelper();
             dataList = sharedViewModel.getDeviceList(); // Retrieve dataList from ViewModel
-             loadDataFromFirebaseData() ;
-
             // Cấu hình Toolbar
             cardDevice = rootView.findViewById(R.id.cardViewDevice);
             txtRoom = rootView.findViewById(R.id.txtRoom);
@@ -130,9 +105,30 @@ public class DeviceFragment extends Fragment {
                     .setPositiveButton("Thêm", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             String title = titleEditText.getText().toString();
-                            DataDevice androidData = new DataDevice(title, "Herb", "", R.drawable.cay_1);
+                            boolean isSwitchOn = false;
+                            DataDevice androidData = new DataDevice(title, "Herb", "", R.drawable.cay_1, "20", "35", isSwitchOn);
                             sharedViewModel.getInstance().addDevice(androidData);
                          // Notify the adapter that the data set has changed
+  // Initialize the adapter if it is null
+                            if (adapter == null) {
+                                // Clear the existing list
+                                sharedViewModel.getInstance().getDeviceList().clear();
+
+                                // Add the new data
+                                sharedViewModel.getInstance().getDeviceList().addAll(dataList);
+
+                                // Add the new device
+                                sharedViewModel.getInstance().addDevice(androidData);
+
+                                // Initialize the adapter
+                                adapter = new DeviceAdapter(getActivity(), sharedViewModel.getDeviceList(), toolbarTitle, userEmail);
+
+                                // Set the adapter to the RecyclerView
+                                recyclerView.setAdapter(adapter);
+                                loadDataFromFirebaseData();
+                                // Notify the adapter that the data set has changed
+                                //adapter.notifyDataSetChanged();
+                            }
 
                            adapter.notifyDataSetChanged();
 
@@ -180,5 +176,3 @@ public class DeviceFragment extends Fragment {
             });
         }
     }
-
-
