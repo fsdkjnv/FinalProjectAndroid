@@ -110,10 +110,11 @@ public class DeviceAdapter extends RecyclerView.Adapter<MyViewHolderDevice> {
             public boolean onLongClick(View v) {
                 int currentPosition = holder.getAdapterPosition();
                 if (currentPosition != RecyclerView.NO_POSITION) {
+
                     new AlertDialog.Builder(context)
-                            .setTitle("Xác nhận xóa")
-                            .setMessage("Bạn có chắc chắn muốn xóa mục này không?")
-                            .setPositiveButton("Xóa", new DialogInterface.OnClickListener() {
+                            .setTitle("Confirm deletion")
+                            .setMessage("Are you sure you want to delete this item?")
+                            .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                    String encodedEmail = encodeEmail(userEmail);
@@ -124,12 +125,13 @@ public class DeviceAdapter extends RecyclerView.Adapter<MyViewHolderDevice> {
                                     notifyItemRemoved(currentPosition);
                                 }
                             })
-                            .setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
+                            .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     dialog.dismiss();
                                 }
                             })
+
                             .show();
                 }
                 return true;

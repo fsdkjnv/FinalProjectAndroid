@@ -141,11 +141,8 @@ public class DeviceFragment extends Fragment {
                             }
 
                            adapter.notifyDataSetChanged();
-
-
                             // Save the updated data to Firebase
                            firebaseDatabaseHelper.saveRecyclerViewDataDevice(encodedEmail, toolbarTitle, sharedViewModel.getInstance().getDeviceList());
-
                             dialog.dismiss();
                         }
                     })

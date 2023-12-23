@@ -86,7 +86,6 @@ public class HomeFragment extends Fragment {
                         sharedViewModel.getInstance().addRoom(androidData);
                         adapter.notifyDataSetChanged();
                         firebaseDatabaseHelper.saveRecyclerViewData(encodedEmail, sharedViewModel.getInstance().getDataList());
-
                         dialog.dismiss();
                     }
                 })

@@ -1,7 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="#F5FDFB"
     android:padding="20dp">
@@ -17,7 +17,6 @@
         android:outlineProvider="background"
         android:elevation="4dp"/>
 
-
     <!-- Name TextView without underline -->
     <TextView
         android:id="@+id/name_textview"
@@ -27,8 +26,9 @@
         android:text="Gmail :"
         android:textSize="18sp"
         android:textColor="#000000"
-               android:background="@null"
+        android:background="@null"
         android:fontFamily="@font/abel_regular"/>
+
     <!-- Email TextView without underline -->
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -48,14 +48,10 @@
             android:text="esddt text"
             android:padding="10dp"
             android:textColor="#000000"
-            android:textSize="18sp" />
+            android:textSize="15sp" />
     </androidx.cardview.widget.CardView>
 
-
-
-
-
-
+    <!-- Logout Button -->
     <Button
         android:id="@+id/logout_button"
         android:layout_width="match_parent"

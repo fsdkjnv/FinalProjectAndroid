@@ -56,6 +56,7 @@
                 android:drawablePadding="8dp"
                 android:textColorHint="@android:color/white"
                 android:backgroundTint="@android:color/white"
+                android:textColor="#FFFFFF"
                 android:hint="Email"
                 android:padding="8dp" />
 
@@ -67,6 +68,7 @@
                 android:layout_marginTop="20dp"
                 android:drawableLeft="@drawable/baseline_lock_24"
                 android:drawablePadding="8dp"
+                android:textColor="#FFFFFF"
                 android:hint="Password"
                 android:inputType="textPassword"
                 android:textColorHint="@android:color/white"
@@ -78,6 +80,7 @@
                 android:layout_width="355dp"
                 android:layout_height="60dp"
                 android:layout_gravity="center"
+                android:textColor="#FFFFFF"
                 android:layout_marginTop="20dp"
                 android:drawableLeft="@drawable/baseline_password_24"
                 android:drawablePadding="8dp"
@@ -97,6 +100,7 @@
             android:textColor="#0C9359"
             android:background="@null"
             android:backgroundTint="#FFFFFF"
+
             android:fontFamily="@font/abel_regular"
             android:textSize="18sp"
             app:cornerRadius="3dp"

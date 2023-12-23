@@ -81,7 +81,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cardViewRecyclerView"
         android:layout_width="370dp"
-        android:layout_height="620dp"
+        android:layout_height="wrap_content"
         app:cardCornerRadius="12dp"
         app:cardUseCompatPadding="true"
         app:cardElevation="5dp"
@@ -92,7 +92,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewDevice"
             android:layout_width="match_parent"
-            android:layout_height="600dp"
+            android:layout_height="460dp"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:scrollbars="vertical" />
