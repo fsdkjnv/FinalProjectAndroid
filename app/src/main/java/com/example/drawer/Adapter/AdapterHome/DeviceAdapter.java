@@ -24,12 +24,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.drawer.Data.DataHome.DataDevice;
 import com.example.drawer.R;
-import com.example.drawer.ShareView.Database;
 import com.example.drawer.ShareView.FirebaseDatabaseHelper;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
-import java.lang.reflect.Type;
 
 public class DeviceAdapter extends RecyclerView.Adapter<MyViewHolderDevice> {
     FirebaseDatabaseHelper firebaseDatabaseHelper;
@@ -37,7 +32,6 @@ public class DeviceAdapter extends RecyclerView.Adapter<MyViewHolderDevice> {
     private Context context; // Ngữ cảnh của ứng dụng
     private List<DataDevice> dataList; // Danh sách dữ liệu thiết bị
     private String toolbarTitle; // Thêm biến để lưu trữ toolbarTitle
-    private Database database; // Thêm biến để truy cập Database
     private String userEmail;
 
     // Phương thức khởi tạo của DeviceAdapter, được sử dụng để khởi tạo adapter với ngữ cảnh và danh sách dữ liệu được cung cấp
@@ -45,7 +39,6 @@ public class DeviceAdapter extends RecyclerView.Adapter<MyViewHolderDevice> {
         this.context = context;
         this.dataList = dataList != null ? dataList : new ArrayList<>();
         this.toolbarTitle = toolbarTitle;
-        this.database = new Database(context);
         this.userEmail = userEmail;
         this.firebaseDatabaseHelper = new FirebaseDatabaseHelper(); // Add this line
 
@@ -89,9 +82,9 @@ public class DeviceAdapter extends RecyclerView.Adapter<MyViewHolderDevice> {
                 int currentPosition = holder.getAdapterPosition();
                 if (currentPosition != RecyclerView.NO_POSITION) {
                     new AlertDialog.Builder(context)
-                            .setTitle("Xác nhận xóa")
-                            .setMessage("Bạn có chắc chắn muốn xóa mục này không?")
-                            .setPositiveButton("Xóa", new DialogInterface.OnClickListener() {
+                            .setTitle("Confirm deletion")
+                            .setMessage("Are you sure you want to delete this item?")
+                            .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                    String encodedEmail = encodeEmail(userEmail);
@@ -101,7 +94,7 @@ public class DeviceAdapter extends RecyclerView.Adapter<MyViewHolderDevice> {
                                     notifyItemRemoved(currentPosition);
                                 }
                             })
-                            .setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
+                            .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     dialog.dismiss();
@@ -125,7 +118,6 @@ public class DeviceAdapter extends RecyclerView.Adapter<MyViewHolderDevice> {
                                 public void onClick(DialogInterface dialog, int which) {
                                    String encodedEmail = encodeEmail(userEmail);
                                     dataList.remove(currentPosition);
-                                    saveDataToSharedPreferences(dataList);
                                    Log.e("Firebase", "Error deleting data: " );
                                     firebaseDatabaseHelper.saveRecyclerViewDataDevice(encodedEmail,toolbarTitle, dataList);
 
@@ -149,7 +141,7 @@ public class DeviceAdapter extends RecyclerView.Adapter<MyViewHolderDevice> {
             @Override
             public void onClick(View v) {
                 // Toggle visibility of recCardTemp
-                int targetHeight = holder.linearLayout.getHeight() == dpToPx(70) ? dpToPx(175) : dpToPx(70);
+                int targetHeight = holder.linearLayout.getHeight() == dpToPx(175) ? dpToPx(70) : dpToPx(175);
                 animateViewHeight(holder.linearLayout, targetHeight);
             }
         });
@@ -213,9 +205,7 @@ public class DeviceAdapter extends RecyclerView.Adapter<MyViewHolderDevice> {
         // Notify the adapter that the data set has changed
         notifyDataSetChanged();
     }
-    private void saveDataToSharedPreferences(List<DataDevice> dataList) {
-        database.saveRecyclerViewDataDevice(userEmail,toolbarTitle, dataList);
-    }
+
 }
 
 class MyViewHolderDevice extends RecyclerView.ViewHolder {

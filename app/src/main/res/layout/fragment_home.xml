@@ -20,7 +20,7 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="16dp"
         android:fontFamily="@font/abel_regular"
-        android:text="Hello, Vo Vi 🌿"
+        android:text="Hello 🌿"
         android:textColor="#06492C"
         android:textSize="30sp"
         app:layout_constraintStart_toStartOf="parent"

@@ -1,5 +1,7 @@
 package com.example.drawer.fragment.FragmentHome;
 
+import static com.example.drawer.fragment.FragmentHome.HomeFragment.encodeEmail;
+
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -61,7 +63,8 @@ public class DeviceFragment extends Fragment {
 
             }
             userEmail = MyDataSingleton.getInstance().getUserEmail();
-            encodedEmail = FirebaseDatabaseHelper.encodeEmail(userEmail);
+            encodedEmail = encodeEmail(userEmail);
+
             firebaseDatabaseHelper = new FirebaseDatabaseHelper();
             dataList = sharedViewModel.getDeviceList(); // Retrieve dataList from ViewModel
             // Cấu hình Toolbar
@@ -93,20 +96,27 @@ public class DeviceFragment extends Fragment {
            loadDataFromFirebaseData() ;
             return rootView;
         }
+        public static String encodeEmail(String email) {
+        return email.replace(".", ",");
+       }
         private void showAddItemDialog() {
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             LayoutInflater inflater = requireActivity().getLayoutInflater();
-            View dialogView = inflater.inflate(R.layout.dialog_add_item, null);
+            View dialogView = inflater.inflate(R.layout.add_devic, null);
             EditText titleEditText = dialogView.findViewById(R.id.editText);
+            EditText titleEditText_2 = dialogView.findViewById(R.id.editText_2);
+
             titleEditText.requestFocus();
 
             builder.setView(dialogView)
-                    .setTitle("Thêm mục mới")
-                    .setPositiveButton("Thêm", new DialogInterface.OnClickListener() {
+                    .setTitle("Create Plant")
+                    .setPositiveButton("Create", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             String title = titleEditText.getText().toString();
+                            String title_2 = titleEditText_2.getText().toString();
+
                             boolean isSwitchOn = false;
-                            DataDevice androidData = new DataDevice(title, "Herb", "", R.drawable.cay_1, "20", "35", isSwitchOn);
+                            DataDevice androidData = new DataDevice(title, title_2, "", R.drawable.cay_1, 20, 35, isSwitchOn);
                             sharedViewModel.getInstance().addDevice(androidData);
                          // Notify the adapter that the data set has changed
   // Initialize the adapter if it is null
@@ -139,13 +149,15 @@ public class DeviceFragment extends Fragment {
                             dialog.dismiss();
                         }
                     })
-                    .setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
+                    .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             dialog.dismiss();
                         }
                     });
 
             AlertDialog alertDialog = builder.create();
+            alertDialog.getWindow().setBackgroundDrawableResource(R.drawable.rounded_corner);
+
             alertDialog.show();
         }
 

@@ -22,10 +22,8 @@ import com.example.drawer.Adapter.AdapterHome.MyAdapter;
 import com.example.drawer.Data.DataHome.DataClass;
 import com.example.drawer.Data.MyDataSingleton;
 import com.example.drawer.R;
-import com.example.drawer.ShareView.Database;
 import com.example.drawer.ShareView.FirebaseDatabaseHelper;
 import com.example.drawer.ShareView.SharedViewModel;
-import com.google.firebase.database.DatabaseError;
 
 import java.util.List;
 
@@ -80,8 +78,8 @@ public class HomeFragment extends Fragment {
         titleEditText.requestFocus();
 
         builder.setView(dialogView)
-                .setTitle("Thêm mục mới")
-                .setPositiveButton("Thêm", new DialogInterface.OnClickListener() {
+                .setTitle("Create Plant Room")
+                .setPositiveButton("Create", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         String title = titleEditText.getText().toString();
                         DataClass androidData = new DataClass(title, R.string.rating, "", R.drawable.phongkhach);
@@ -92,15 +90,20 @@ public class HomeFragment extends Fragment {
                         dialog.dismiss();
                     }
                 })
-                .setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.dismiss();
                     }
                 });
 
         AlertDialog alertDialog = builder.create();
+
+        // Set background drawable for the dialog window
+        alertDialog.getWindow().setBackgroundDrawableResource(R.drawable.rounded_corner);
+
         alertDialog.show();
     }
+
 
 
     private void loadDataFromFirebase() {

@@ -5,8 +5,8 @@ public class DataDevice {
     private String dataDesc; // Mô tả dữ liệu
     private String dataLang; // Ngôn ngữ dữ liệu
     private int dataImage; // Hình ảnh dữ liệu
-    private String nhietdo; // Mô tả dữ liệu
-    private String doam; // Ngôn ngữ dữ liệu
+    private int nhietdo; // Mô tả dữ liệu
+    private int doam; // Ngôn ngữ dữ liệu
     private boolean isSwitchOn; // Trạng thái của switch
 
     public String getDataTitle() {
@@ -25,11 +25,11 @@ public class DataDevice {
         return dataImage;
     }
 
-    public String getNhietdo() {
+    public int getNhietdo() {
         return nhietdo;
     }
 
-    public String getDoam() {
+    public int getDoam() {
         return doam;
     }
 
@@ -44,8 +44,10 @@ public class DataDevice {
     public DataDevice() {
         // Có thể để trống hoặc thêm các khởi tạo mặc định nếu cần
     }
-
-    public DataDevice(String dataTitle, String dataDesc, String dataLang, int dataImage, String nhietdo, String doam, boolean isSwitchOn) {
+    public boolean isTemperatureAboveThreshold(int threshold) {
+            return nhietdo > threshold;
+        }
+    public DataDevice(String dataTitle, String dataDesc, String dataLang, int dataImage, int nhietdo, int doam, boolean isSwitchOn) {
         this.dataTitle = dataTitle; // Khởi tạo tiêu đề dữ liệu
         this.dataDesc = dataDesc; // Khởi tạo mô tả dữ liệu
         this.dataLang = dataLang; // Khởi tạo ngôn ngữ dữ liệu

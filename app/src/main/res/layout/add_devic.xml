@@ -1,0 +1,43 @@
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:padding="25dp"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Các thành phần khác trong layout -->
+
+        <EditText
+            android:id="@+id/editText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Name Plant"
+            android:fontFamily="@font/abel_regular"
+            android:background="@drawable/edittext_rounded_background"
+            android:layout_weight="5"
+            android:paddingLeft="22dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:layout_marginBottom="10dp"/> <!-- Add margin bottom for spacing -->
+
+        <EditText
+            android:id="@+id/editText_2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Plant Species"
+            android:fontFamily="@font/abel_regular"
+            android:background="@drawable/edittext_rounded_background"
+            android:layout_weight="5"
+            android:paddingLeft="22dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:layout_marginTop="10dp"/> <!-- Add margin top for spacing -->
+
+        <!-- Các thành phần khác trong layout -->
+
+    </LinearLayout>
+</ScrollView>

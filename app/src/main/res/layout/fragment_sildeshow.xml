@@ -1,114 +1,61 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="#F5FDFB"
     android:padding="20dp">
-
-    <!-- Heyname TextView without underline -->
-    <TextView
-        android:id="@+id/heyname_textview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Hey, Vo vi 😄"
-        android:textSize="30sp"
-        android:textColor="#000000"
-        android:layout_marginBottom="10dp"
-        android:background="@null"
-        android:fontFamily="@font/abel_regular"/>
 
     <ImageView
         android:layout_width="168dp"
         android:layout_height="167dp"
         android:layout_gravity="center"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/circle_background"
+        android:src="@drawable/flower_6"
         android:clipToOutline="true"
         android:outlineProvider="background"
-        android:src="@drawable/phongngu" />
+        android:elevation="4dp"/>
+
 
     <!-- Name TextView without underline -->
     <TextView
         android:id="@+id/name_textview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="esddt text"
+        android:paddingTop="10dp"
+        android:text="Gmail :"
         android:textSize="18sp"
         android:textColor="#000000"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="10dp"
-        android:background="@null"
+               android:background="@null"
         android:fontFamily="@font/abel_regular"/>
-    <!-- Add a comment above the TextView -->
-    <!-- This is the Name TextView -->
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2.5dp"
-        android:background="#85000000"/>
-
     <!-- Email TextView without underline -->
-    <TextView
-        android:id="@+id/email_textview"
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="esddt text"
-        android:textSize="18sp"
-        android:textColor="#000000"
-        android:layout_marginTop="20dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
-        android:background="@null"
-        android:fontFamily="@font/abel_regular"/>
-    <!-- Add a comment above the TextView -->
-    <!-- This is the Email TextView -->
+        app:cardBackgroundColor="#ffffff"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="0dp">
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2.5dp"
-        android:background="#85000000"/>
+        <TextView
+            android:id="@+id/email_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:fontFamily="@font/abel_regular"
+            android:text="esddt text"
+            android:padding="10dp"
+            android:textColor="#000000"
+            android:textSize="18sp" />
+    </androidx.cardview.widget.CardView>
 
-    <!-- Phone TextView without underline -->
-    <TextView
-        android:id="@+id/phone_textview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="esddt text"
-        android:textSize="18sp"
-        android:textColor="#000000"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="10dp"
-        android:background="@null"
-        android:fontFamily="@font/abel_regular"/>
-    <!-- Add a comment above the TextView -->
-    <!-- This is the Phone TextView -->
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2.5dp"
-        android:background="#85000000"/>
 
-    <!-- Password TextView without underline -->
-    <TextView
-        android:id="@+id/password_textview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="esddt text"
-        android:textSize="18sp"
-        android:textColor="#000000"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="10dp"
-        android:background="@null"
-        android:fontFamily="@font/abel_regular"/>
-    <!-- Add a comment above the TextView -->
-    <!-- This is the Password TextView -->
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2.5dp"
-        android:background="#85000000"/>
 
-    <!-- Logout Button without underline -->
+
     <Button
         android:id="@+id/logout_button"
         android:layout_width="match_parent"
@@ -117,9 +64,8 @@
         android:backgroundTint="#0C9359"
         android:text="LOG OUT"
         android:textColor="#FFFFFF"
-        android:background="@null"
+        android:padding="12dp"
+        android:gravity="center"
         android:fontFamily="@font/abel_regular"/>
-    <!-- Add a comment above the Button -->
-    <!-- This is the Logout Button -->
 
 </LinearLayout>
